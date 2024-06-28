@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 
-from ansible_collections.ceemea.rag.plugins.module_utils.utils import get_config, get_agent_payload
+from ansible_collections.ibm.ce_emea_rag.plugins.module_utils.utils import get_config, get_agent_payload
 from ansible.module_utils.basic import AnsibleModule
 
 

@@ -1,8 +1,19 @@
-namespace: ceemea
-name: rag
-version: 1.0.0
-readme: README.md
+namespace: "ibm"
+name: "ce_emea_rag"
+version: "1.0.0"
+readme: "README.md"
 authors:
-  - fabtice.livigni@fr.ibm.com
-description: An Ansible collection to interact with internam RAG REST APIs using custom modules.
-license: FAB
+    - "Jay W Carman"
+    - "Anilkumar C M"
+    - "Kavya Handadi"
+    - "Umar Ali"
+description: "Ansible modules collection for IBM cloud."
+license:
+    - "FAB-1.0"
+issues: "https://github.com/IBM-Cloud/ansible-collection-ibm/issues"
+tags:
+    - ibm
+    - ceemear
+    - rag
+
+repository: "https://github.com/.."

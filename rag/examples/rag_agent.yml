@@ -6,7 +6,7 @@
 
 
     - name: Get a list of RAG agents
-      ceemea.rag.agent:
+      ibm.ce_emea_rag.rag_agent:
         rag_workspace_id: "clxt68sy6000277c1q434saj3"
         method: LIST
       register: get_result
@@ -16,9 +16,9 @@
         var: get_result.json_payload
 
     - name: Create a RAG agent
-      ceemea.rag.agent:
+      ibm.ce_emea_rag.rag_agent:
         rag_workspace_id: clxt68sy6000277c1q434saj3
-        agent_name: Lorenzo10 Charenton10
+        agent_name: Lorenzo12 Charenton12
         method: CREATE
       register: create_result
 
@@ -27,10 +27,10 @@
         var: create_result.json_payload
 
     - name: Update a RAG agent
-      ceemea.rag.agent:
+      ibm.ce_emea_rag.rag_agent:
         rag_workspace_id: clxt68sy6000277c1q434saj3
         rag_agent_id: "{{create_result.json_payload.id}}"
-        agent_name: "Lorenzo5 Livigni5"
+        agent_name: "Lorenzo7 Livigni7"
         method: UPDATE
       register: update_result
 
@@ -39,7 +39,7 @@
         var: update_result.json_payload
 
     - name: Get a RAG agent by its ID
-      ceemea.rag.agent:
+      ibm.ce_emea_rag.rag_agent:
         rag_workspace_id: clxt68sy6000277c1q434saj3
         rag_agent_id: "{{create_result.json_payload.id}}"
         method: GET_BY_ID
@@ -50,7 +50,7 @@
         var: get_by_id_result.json_payload
 
     - name: Delete a RAG agent by its ID
-      ceemea.rag.agent:
+      ibm.ce_emea_rag.rag_agent:
         rag_workspace_id: clxt68sy6000277c1q434saj3
         rag_agent_id: "{{create_result.json_payload.id}}"
         method: DELETE
