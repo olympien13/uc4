@@ -1,0 +1,8 @@
+namespace: ceemea
+name: rag
+version: 1.0.0
+readme: README.md
+authors:
+  - fabtice.livigni@fr.ibm.com
+description: An Ansible collection to interact with internam RAG REST APIs using custom modules.
+license: FAB
