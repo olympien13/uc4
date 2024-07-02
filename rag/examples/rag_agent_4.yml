@@ -1,5 +1,5 @@
 ---
-- name: Custom Sample RAG Ansible playbooks to manage RAG Agents
+- name: Sample Ansible playbooks to manage Artificial Intelligence (AI) assistant agents into a Retrieval-Augmented Generation (RAG) structure
   hosts: localhost
   gather_facts: False
   module_defaults:
@@ -9,7 +9,7 @@
   tasks:
 
 
-    - name: Get a list of RAG agents
+    - name: Get a list of AI assistant agents into a Retrieval-Augmented Generation (RAG) structure
       ibm.ce_emea_rag.rag_agent:
         rag_workspace_id: "clxt68sy6000277c1q434saj3"
         method: LIST
@@ -19,7 +19,7 @@
       debug:
         var: get_result.json_payload
 
-    - name: Create a RAG agent
+    - name: Create an AI assistant agent into a Retrieval-Augmented Generation (RAG) structure
       ibm.ce_emea_rag.rag_agent:
         rag_workspace_id: clxt68sy6000277c1q434saj3
         agent_name: Lorenzo13 Charenton13
@@ -30,7 +30,7 @@
       debug:
         var: create_result.json_payload
 
-    - name: Update a RAG agent
+    - name: Update an AI assistant agent into a Retrieval-Augmented Generation (RAG) structure
       ibm.ce_emea_rag.rag_agent:
         rag_workspace_id: clxt68sy6000277c1q434saj3
         rag_agent_id: "{{create_result.json_payload.id}}"
@@ -38,11 +38,11 @@
         method: UPDATE
       register: update_result
 
-    - name: Display the output of Create a RAG agent
+    - name: Display the output of Create an AI assistant agen
       debug:
         var: update_result.json_payload
 
-    - name: Get a RAG agent by its ID
+    - name: Get an AI assistant agen by its ID into a Retrieval-Augmented Generation (RAG) structure
       ibm.ce_emea_rag.rag_agent:
         rag_workspace_id: clxt68sy6000277c1q434saj3
         rag_agent_id: "{{create_result.json_payload.id}}"
@@ -53,7 +53,7 @@
       debug:
         var: get_by_id_result.json_payload
 
-    - name: Delete a RAG agent by its ID
+    - name: Delete an AI assistant agen by its ID into a Retrieval-Augmented Generation (RAG) structure
       ibm.ce_emea_rag.rag_agent:
         rag_workspace_id: clxt68sy6000277c1q434saj3
         rag_agent_id: "{{create_result.json_payload.id}}"

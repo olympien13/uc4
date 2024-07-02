@@ -1,0 +1,66 @@
+---
+- name: Sample Ansible playbooks to manage Artificial Intelligence (AI) assistant agents in a Retrieval-Augmented Generation (RAG) setup
+  hosts: localhost
+  gather_facts: False
+  module_defaults:
+    ibm.ce_emea_rag.rag_agent:
+      rag_api_base_url: https://rag-turbo-app-rag-turbo.apps.wxai-ocp-ga.p126.cesc.nca.ihost.com/api
+      rag_api_key: sk_wrk_2MRLdOtcHpgadUefAIuW2o1l2qXZ3Qkscynkd4eXxOs9OZun  
+  tasks:
+
+
+    - name: Get a list of AI assistant agents in a Retrieval-Augmented Generation (RAG) setup
+      ibm.ce_emea_rag.rag_agent:
+        rag_workspace_id: "clxt68sy6000277c1q434saj3"
+        method: LIST
+      register: get_result
+
+    - name: Display the list of RAG agents
+      debug:
+        var: get_result.json_payload
+
+    - name: Create an AI assistant agent in a Retrieval-Augmented Generation (RAG) setup
+      ibm.ce_emea_rag.rag_agent:
+        rag_workspace_id: clxt68sy6000277c1q434saj3
+        agent_name: Lorenzo13 Charenton13
+        method: CREATE
+      register: create_result
+
+    - name: Display the output of Create a RAG agent
+      debug:
+        var: create_result.json_payload
+
+    - name: Update an AI assistant agent in a Retrieval-Augmented Generation (RAG) setup
+      ibm.ce_emea_rag.rag_agent:
+        rag_workspace_id: clxt68sy6000277c1q434saj3
+        rag_agent_id: "{{create_result.json_payload.id}}"
+        agent_name: "Lorenzo8 Livigni8"
+        method: UPDATE
+      register: update_result
+
+    - name: Display the output of Create an AI assistant agen
+      debug:
+        var: update_result.json_payload
+
+    - name: Get an AI assistant agen by its ID in a Retrieval-Augmented Generation (RAG) setup
+      ibm.ce_emea_rag.rag_agent:
+        rag_workspace_id: clxt68sy6000277c1q434saj3
+        rag_agent_id: "{{create_result.json_payload.id}}"
+        method: GET_BY_ID
+      register: get_by_id_result
+
+    - name: Display the agent info
+      debug:
+        var: get_by_id_result.json_payload
+
+    - name: Delete an AI assistant agen by its ID in a Retrieval-Augmented Generation (RAG) setup
+      ibm.ce_emea_rag.rag_agent:
+        rag_workspace_id: clxt68sy6000277c1q434saj3
+        rag_agent_id: "{{create_result.json_payload.id}}"
+        method: DELETE
+      register: delete_result
+
+    - name: Display the delete agent result
+      debug:
+        var: delete_result.json_payload
+

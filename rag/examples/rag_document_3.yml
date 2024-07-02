@@ -1,5 +1,5 @@
 ---
-- name: Sample Ansible playbooks to manage documents in a Retrieval-Augmented Generation (RAG) framework
+- name: Sample Ansible playbooks to manage documents in a Retrieval-Augmented Generation (RAG) architecture
   hosts: localhost
   gather_facts: False
   module_defaults:
@@ -12,7 +12,7 @@
   tasks:
 
 
-    - name: Get a list of documents in a Retrieval-Augmented Generation (RAG) framework
+    - name: Get a list of documents in a Retrieval-Augmented Generation (RAG) architecture
       ibm.ce_emea_rag.rag_document:
         rag_agent_id: clxt6tle8000777c1ssbpf9b2
         method: LIST
@@ -22,7 +22,7 @@
       debug:
         var: get_result.json_payload
 
-    - name: Get or Retrieve a document by its ID in a Retrieval-Augmented Generation (RAG) framework
+    - name: Get or Retrieve a document by its ID  in a Retrieval-Augmented Generation (RAG) architecture
       ibm.ce_emea_rag.rag_document:
         rag_agent_id: clxt6tle8000777c1ssbpf9b2
         rag_document_id: "{{ get_result.json_payload[0].id  }}"
@@ -34,7 +34,7 @@
         var: get_by_id_result.json_payload
 
 
-    - name: Embed a document in a Retrieval-Augmented Generation (RAG) framework
+    - name: Transfer or Submit a document in a Retrieval-Augmented Generation (RAG) architecture
       ibm.ce_emea_rag.rag_document:
         rag_agent_id: clxt6tle8000777c1ssbpf9b2
         rag_file_name: Red_Hat_Partner Training_Portal_User_Guide.pdf
@@ -55,7 +55,7 @@
       delegate_to: localhost
 
 
-    - name: Remove or Delete a document by its ID in a Retrieval-Augmented Generation (RAG) framework
+    - name: Remove or Delete a document by its ID in a Retrieval-Augmented Generation (RAG) architecture
       ibm.ce_emea_rag.rag_document:
         rag_agent_id: "clxt6tle8000777c1ssbpf9b2"
         rag_document_id: "{{ create_result.json_payload.id }}"
