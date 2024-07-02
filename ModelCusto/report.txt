@@ -3,7 +3,7 @@
 ****                Ansible Content Parser Execution Report                 ****
 ********************************************************************************
 
-Date/Time             : 2024-06-28T07:47:35.668051+00:00
+Date/Time             : 2024-07-02T08:04:02.883168+00:00
 Content Parser Version: 1.0.3
 Source Repository     : https://github.com/olympien13/uc4.git
 Output Directory      : /Users/livigni/Documents/TNC/WCA4A/clients/CAGIP/uc4/ModelCusto
@@ -11,12 +11,13 @@ Output Directory      : /Users/livigni/Documents/TNC/WCA4A/clients/CAGIP/uc4/Mod
 
 [ List of Ansible modules found in tasks ]
 
------------------------------
-Module Name             Count
------------------------------
-debug                      13
-ceemea.rag.agent            9
-ceemea.rag.document         4
------------------------------
-TOTAL                      26
------------------------------
+--------------------------------------
+Module Name                      Count
+--------------------------------------
+debug                               11
+ibm.ce_emea_rag.rag_document         6
+ibm.ce_emea_rag.rag_agent            5
+pause                                1
+--------------------------------------
+TOTAL                               23
+--------------------------------------

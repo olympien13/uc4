@@ -1,5 +1,5 @@
 ---
-- name: Sample RAG Ansible playbooks to manage RAG Documents
+- name: Sample RAG Ansible playbooks to manage RAG Documents with credentials
   hosts: localhost
   gather_facts: False
   module_defaults:
