@@ -1,0 +1,5 @@
+  my_module_defaults:
+      rag_api_base_url: "{{ rag_api_base_url }}"
+      rag_username_api: "{{ rag_username_api }}"
+      rag_password_api: "{{ rag_password_api }}"
+      rag_api_key: "{{ rag_api_key }}"

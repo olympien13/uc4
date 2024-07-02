@@ -1,0 +1,63 @@
+---
+- name: Sample RAG Ansible playbooks to manage RAG Documents
+  hosts: localhost
+  gather_facts: False
+  vars_files:
+    - my_module_defaults.yml
+    
+  module_defaults:
+    ibm.ce_emea_rag.rag_document: "{{ my_module_defaults }}"
+
+  tasks:
+
+    - name: Get a list of RAG documents
+      ibm.ce_emea_rag.rag_document:
+        rag_agent_id: clxt6tle8000777c1ssbpf9b2
+        method: LIST
+      register: get_result
+
+    - name: Display the list of RAG documents
+      debug:
+        var: get_result.json_payload
+
+    - name: Get a RAG document by its ID
+      ibm.ce_emea_rag.rag_document:
+        rag_agent_id: clxt6tle8000777c1ssbpf9b2
+        rag_document_id: "{{ get_result.json_payload[0].id  }}"
+        method: GET_BY_ID
+      register: get_by_id_result
+
+    - name: Display the RAG document info
+      debug:
+        var: get_by_id_result.json_payload
+
+    - name: Create a RAG document
+      ibm.ce_emea_rag.rag_document:
+        rag_agent_id: clxt6tle8000777c1ssbpf9b2
+        rag_file_name: Red_Hat_Partner Training_Portal_User_Guide.pdf
+        rag_file_url: http://localhost/pdf/Red_Hat_Partner_Training_Portal_User_Guide.pdf
+        rag_chunk_overlap: 150
+        rag_chunk_size: 400
+        rag_keep_files: false
+        method: CREATE
+      register: create_result
+
+    - name: Display the output of Create a RAG agent
+      debug:
+        var: create_result.json_payload
+
+    # - name: Delete a RAG document by its ID
+    #   ibm.ce_emea_rag.rag_document:
+    #     rag_agent_id: "clxt6tle8000777c1ssbpf9b2"
+    #     rag_document_id: "clxvyxb5c006077c1bw48gknj"
+    #     method: DELETE
+    #   register: delete_result
+
+    # - name: Display the delete document result
+    #   debug:
+    #     var: delete_result.json_payload
+
+
+
+
+
