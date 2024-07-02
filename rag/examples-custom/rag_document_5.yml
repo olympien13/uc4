@@ -10,7 +10,6 @@
 
   tasks:
 
-
     - name: Get a list of documents in a Retrieval-Augmented Generation (RAG) setup
       ibm.ce_emea_rag.rag_document:
         rag_agent_id: "{{ rag_agent_id }}"
