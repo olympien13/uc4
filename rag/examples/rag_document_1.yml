@@ -2,15 +2,13 @@
 - name: Sample RAG Ansible playbooks to manage RAG Documents
   hosts: localhost
   gather_facts: False
+  vars_files:
+    - my_module_defaults.yml
+    
   module_defaults:
-    ibm.ce_emea_rag.rag_document:
-      rag_api_base_url: https://rag-turbo-app-rag-turbo.apps.wxai-ocp-ga.p126.cesc.nca.ihost.com/api
-      rag_username_api: fabrice.livigni@free.fr
-      rag_password_api: password
-      rag_api_key: sk_wrk_2MRLdOtcHpgadUefAIuW2o1l2qXZ3Qkscynkd4eXxOs9OZun
+    ibm.ce_emea_rag.rag_document: "{{ my_module_defaults }}"
 
   tasks:
-
 
     - name: Get a list of RAG documents
       ibm.ce_emea_rag.rag_document:
@@ -32,11 +30,6 @@
     - name: Display the RAG document info
       debug:
         var: get_by_id_result.json_payload
-
-    - pause:
-        prompt: "Do you want to continue(yes/no)?"
-      register: my_pause
-      delegate_to: localhost
 
     - name: Create a RAG document
       ibm.ce_emea_rag.rag_document:

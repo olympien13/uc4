@@ -15,7 +15,9 @@ def run_module():
     # Define the available arguments/parameters that a user can pass to the module
     module_args = dict(
         rag_workspace_id=dict(type='str', required=True),
+        rag_api_base_url=dict(type='str', required=True),
         rag_agent_id=dict(type='str', required=False),
+        rag_api_key=dict(type='str', required=True),
         method=dict(type='str', required=True, choices=['LIST', 'CREATE', 'UPDATE', 'GET_BY_ID', 'DELETE']),
         system_prompt=dict(type='str', required=False, default='You are a helpful assistant that supports users. You respond in valid markdown format. Your answers are concise and a relevant to the question.'),
         agent_name=dict(type='str', required=False, default='FirstName LastName'),
@@ -46,6 +48,8 @@ def run_module():
 
     # Extract the parameters from the Ansible module input
     rag_workspace_id = module.params['rag_workspace_id']
+    rag_api_base_url = module.params['rag_api_base_url']
+    rag_api_key = module.params['rag_api_key']
     system_prompt = module.params['system_prompt']
     agent_name = module.params['agent_name']
     model_id = module.params['model_id']
@@ -54,6 +58,7 @@ def run_module():
     method = module.params['method']
     rag_agent_id = module.params['rag_agent_id']
     headers = {**config['default_headers']}
+    headers['x-api-key'] = rag_api_key
 
     agent_payload = get_agent_payload()
     agent_payload['workspace_id'] = rag_workspace_id
@@ -65,22 +70,22 @@ def run_module():
 
     try:
         if method == 'LIST':
-            response = requests.get(f'{config['api_base_url']}/v1/agents?workspace_id={rag_workspace_id}', headers=headers, verify=False)
+            response = requests.get(f'{rag_api_base_url}/v1/agents?workspace_id={rag_workspace_id}', headers=headers, verify=False)
         elif method == 'CREATE':
-            response = requests.post(f'{config['api_base_url']}/v1/agents', json=agent_payload, headers=headers, verify=False)
+            response = requests.post(f'{rag_api_base_url}/v1/agents', json=agent_payload, headers=headers, verify=False)
         elif method == 'UPDATE':
             if rag_agent_id is not None:
-                response = requests.patch(f'{config['api_base_url']}/v1/agents/{rag_agent_id}', json=agent_payload, headers=headers, verify=False)
+                response = requests.patch(f'{rag_api_base_url}/v1/agents/{rag_agent_id}', json=agent_payload, headers=headers, verify=False)
             else:
                 module.fail_json(msg="rag_agent_id required parameter missing!")
         elif method == 'GET_BY_ID':
             if rag_agent_id is not None:
-                response = requests.get(f'{config['api_base_url']}/v1/agents/{rag_agent_id}', headers=headers, verify=False)
+                response = requests.get(f'{rag_api_base_url}/v1/agents/{rag_agent_id}', headers=headers, verify=False)
             else:
                 module.fail_json(msg="rag_agent_id required parameter missing!")      
         elif method == 'DELETE':
             if rag_agent_id is not None:
-                response = requests.delete(f'{config['api_base_url']}/v1/agents/{rag_agent_id}', headers=headers, verify=False)
+                response = requests.delete(f'{rag_api_base_url}/v1/agents/{rag_agent_id}', headers=headers, verify=False)
             else:
                 module.fail_json(msg="rag_agent_id required parameter missing!")     
         response.raise_for_status()  # Raise an error for bad status codes

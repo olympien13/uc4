@@ -9,20 +9,20 @@ import requests
 import os
 import json 
 
-def create_document(config, agent_id, file_name):
+def create_document(config, rag_api_base_url, agent_id, file_name):
     create_payload = {
         "agent_id": f"{agent_id}",
         "name": f"{file_name}",
         "file_type": "pdf"
     }
-    response = requests.post(f'{config['api_base_url']}/v1/documents', json=create_payload, headers={**config['default_headers']}, verify=False)
+    response = requests.post(f'{rag_api_base_url}/v1/documents', json=create_payload, headers={**config['default_headers']}, verify=False)
     response.raise_for_status()  
 
     new_document_id = response.json()['id']
     return new_document_id
 
-def generate_upload_url(config, rag_doc_id):
-    response = requests.get(f'{config['api_base_url']}/v1/documents/{rag_doc_id}/presignedPostPolicy', headers={**config['default_headers']}, verify=False)
+def generate_upload_url(config, rag_api_base_url, rag_doc_id):
+    response = requests.get(f'{rag_api_base_url}/v1/documents/{rag_doc_id}/presignedPostPolicy', headers={**config['default_headers']}, verify=False)
     response.raise_for_status()  
     json_response = response.json()
     return {
@@ -61,13 +61,13 @@ def upload_file(file_url, upload_url,  file_name, upload_data, tmp_dir):
     response = requests.post(upload_url, data=forms_data, files=forms_files, verify=False)
     return local_filename
 
-def update_document(config, rag_doc_id):
-    response = requests.patch(f'{config['api_base_url']}/v1/documents/{rag_doc_id}', json={'is_uploaded': True}, headers={**config['default_headers']}, verify=False)
+def update_document(config, rag_api_base_url, rag_doc_id):
+    response = requests.patch(f'{rag_api_base_url}/v1/documents/{rag_doc_id}', json={'is_uploaded': True}, headers={**config['default_headers']}, verify=False)
     response.raise_for_status()
     return 
 
-def get_csrf_token(session, config):
-    response = session.get(f'{config['api_base_url']}/auth/csrf', headers={**config['default_headers']}, verify=False)
+def get_csrf_token(session, config, rag_api_base_url):
+    response = session.get(f'{rag_api_base_url}/auth/csrf', headers={**config['default_headers']}, verify=False)
     response.raise_for_status()  
     json_response = response.json()
     #raise Exception(session.cookies.get_dict(), json_response['csrfToken'], response.headers)
@@ -75,10 +75,10 @@ def get_csrf_token(session, config):
         'csrf_token':  json_response['csrfToken']
     }
 
-def get_session_auth_token(session, config, csrf_token):
+def get_session_auth_token(session, rag_api_base_url, rag_username, rag_password, csrf_token):
     auth_data = {
-        'email': config['username'],
-        'password': config['password'],
+        'email': rag_username,
+        'password': rag_password,
         'json': 'true',
         'redirect': 'false',
         'callbackUrl': 'https://rag-turbo-app-rag-turbo.apps.wxai-ocp-ga.p126.cesc.nca.ihost.com',
@@ -89,7 +89,7 @@ def get_session_auth_token(session, config, csrf_token):
     c_headers['Content-Type'] = 'application/x-www-form-urlencoded'
     #raise Exception(config)
     
-    response = session.post(f'{config['api_base_url']}/auth/callback/credentials', data=auth_data, headers=c_headers, verify=False)
+    response = session.post(f'{rag_api_base_url}/auth/callback/credentials', data=auth_data, headers=c_headers, verify=False)
     #raise Exception(session.cookies.get_dict(), csrf_token, response.json())
     response.raise_for_status()  
 
@@ -97,12 +97,12 @@ def get_session_auth_token(session, config, csrf_token):
     return 
 
 
-def embed_document(config, agent_id, rag_doc_id, chunk_overlap, chunk_size):
+def embed_document(config, rag_api_base_url,rag_username, rag_password, agent_id, rag_doc_id, chunk_overlap, chunk_size):
     session = requests.Session()
     
-    token = get_csrf_token(session, config)
+    token = get_csrf_token(session, config, rag_api_base_url)
 
-    get_session_auth_token(session, config, token['csrf_token'])
+    get_session_auth_token(session, rag_api_base_url, rag_username, rag_password, token['csrf_token'])
     embed_payload = {
         '0': {
             'json': {
@@ -117,7 +117,7 @@ def embed_document(config, agent_id, rag_doc_id, chunk_overlap, chunk_size):
     }
 
     # Add the specific cookie to the session
-    response = session.post(f'{config['api_base_url']}/trpc/documents.embedPdfDocuments?batch=1', json=embed_payload, headers={**config['default_headers']}, verify=False)
+    response = session.post(f'{rag_api_base_url}/trpc/documents.embedPdfDocuments?batch=1', json=embed_payload, headers={**config['default_headers']}, verify=False)
     #raise Exception(session.cookies.get_dict(), response.json())
     response.raise_for_status()  
     return
@@ -126,6 +126,10 @@ def run_module():
     
     # Define the available arguments/parameters that a user can pass to the module
     module_args = dict(
+        rag_api_base_url=dict(type='str', required=True),
+        rag_username_api=dict(type='str', required=True),
+        rag_password_api=dict(type='str', required=True),
+        rag_api_key=dict(type='str', required=True),
         rag_agent_id=dict(type='str', required=True),
         rag_document_id=dict(type='str', required=False),
         rag_file_name=dict(type='str', required=False),
@@ -159,6 +163,10 @@ def run_module():
 
     # Extract the parameters from the Ansible module input
     method = module.params['method']
+    rag_api_base_url = module.params['rag_api_base_url']
+    rag_username_api = module.params['rag_username_api']
+    rag_password_api = module.params['rag_password_api']
+    rag_api_key = module.params['rag_api_key']
     rag_agent_id = module.params['rag_agent_id']
     rag_document_id = module.params['rag_document_id']
     rag_file_name = module.params['rag_file_name']
@@ -170,32 +178,34 @@ def run_module():
     if rag_tmp_directory is None:
         rag_tmp_directory = config['default_tmp_directory']
     headers = {**config['default_headers']}
+    headers['x-api-key'] = rag_api_key
+    config['default_headers']['x-api-key'] = rag_api_key
     
     try:
         if method == 'LIST':
-            response = requests.get(f'{config['api_base_url']}/v1/documents?agent_id={rag_agent_id}', headers=headers, verify=False)
+            response = requests.get(f'{rag_api_base_url}/v1/documents?agent_id={rag_agent_id}', headers=headers, verify=False)
         elif method == 'CREATE':
             if rag_file_name is not None and rag_file_url is not None:
                 
-                new_document_id = create_document(config, rag_agent_id, rag_file_name)
-                x_azm_payload = generate_upload_url(config, new_document_id)
+                new_document_id = create_document(config, rag_api_base_url, rag_agent_id, rag_file_name)
+                x_azm_payload = generate_upload_url(config, rag_api_base_url, new_document_id)
                 file_path = upload_file(rag_file_url, x_azm_payload['rag_upload_url'], rag_file_name, x_azm_payload, rag_tmp_directory)
-                update_document(config, new_document_id)
-                embed_document(config, rag_agent_id, new_document_id, rag_chunk_overlap, rag_chunk_size)
+                update_document(config, rag_api_base_url, new_document_id)
+                embed_document(config, rag_api_base_url, rag_username_api, rag_password_api, rag_agent_id, new_document_id, rag_chunk_overlap, rag_chunk_size)
                 if not rag_keep_files:
                     remove_file(file_path)
 
-                response = requests.get(f'{config['api_base_url']}/v1/documents/{new_document_id}', headers=headers, verify=False)
+                response = requests.get(f'{rag_api_base_url}/v1/documents/{new_document_id}', headers=headers, verify=False)
             else:
                 module.fail_json(msg="rag_file_name required parameter missing!")     
         elif method == 'GET_BY_ID':
             if rag_document_id is not None:
-                response = requests.get(f'{config['api_base_url']}/v1/documents/{rag_document_id}', headers=headers, verify=False)
+                response = requests.get(f'{rag_api_base_url}/v1/documents/{rag_document_id}', headers=headers, verify=False)
             else:
                 module.fail_json(msg="rag_document_id required parameter missing!")      
         elif method == 'DELETE':
             if rag_document_id is not None:
-                response = requests.delete(f'{config['api_base_url']}/v1/documents/{rag_document_id}', headers=headers, verify=False)
+                response = requests.delete(f'{rag_api_base_url}/v1/documents/{rag_document_id}', headers=headers, verify=False)
             else:
                 module.fail_json(msg="rag_document_id required parameter missing!")     
         response.raise_for_status()  # Raise an error for bad status codes

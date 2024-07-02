@@ -1,0 +1,5 @@
+  my_module_defaults:
+      rag_api_base_url: https://rag-turbo-app-rag-turbo.apps.wxai-ocp-ga.p126.cesc.nca.ihost.com/api
+      rag_username_api: fabrice.livigni@free.fr
+      rag_password_api: password
+      rag_api_key: sk_wrk_2MRLdOtcHpgadUefAIuW2o1l2qXZ3Qkscynkd4eXxOs9OZun

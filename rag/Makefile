@@ -1,7 +1,7 @@
 # Make targets for building the IBM example helloworld edge service
 
 
-COLLECTION_VERSION:=1.0.0
+COLLECTION_VERSION:=1.1.0
 COLLECTION_NAMESPACE:=ibm
 COLLECTION_NAME:=ce_emea_rag
 

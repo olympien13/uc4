@@ -24,16 +24,11 @@ def remove_file(file_path):
 def get_config():
 
     return {
-        "api_base_url": "https://rag-turbo-app-rag-turbo.apps.wxai-ocp-ga.p126.cesc.nca.ihost.com/api",
-        "username": "fabrice.livigni@free.fr",
-        "password": "password",
         "default_tmp_directory": "/tmp",
         "default_headers": {
             "Content-Type": "application/json",
-            "Accept": "application/json",
-            "x-api-key": "sk_wrk_2MRLdOtcHpgadUefAIuW2o1l2qXZ3Qkscynkd4eXxOs9OZun"
+            "Accept": "application/json"
         },
-        "rag_workspace_id": "clxt68sy6000277c1q434saj3",
         "timeout": 30
 }
 
