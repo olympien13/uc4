@@ -38,11 +38,11 @@
         method: UPDATE
       register: update_result
 
-    - name: Display the output of Create an AI assistant agen
+    - name: Display the output of Create an AI assistant agent
       debug:
         var: update_result.json_payload
 
-    - name: Get an AI assistant agen by its ID in a Retrieval-Augmented Generation (RAG) framework
+    - name: Get an AI assistant agentt by its ID in a Retrieval-Augmented Generation (RAG) framework
       ibm.ce_emea_rag.rag_agent:
         rag_workspace_id: "{{ rag_workspace_id }}"
         rag_agent_id: "{{create_result.json_payload.id}}"
@@ -53,7 +53,7 @@
       debug:
         var: get_by_id_result.json_payload
 
-    - name: Delete an AI assistant agen by its ID in a Retrieval-Augmented Generation (RAG) framework
+    - name: Delete an AI assistant agent by its ID in a Retrieval-Augmented Generation (RAG) framework
       ibm.ce_emea_rag.rag_agent:
         rag_workspace_id: "{{ rag_workspace_id }}"
         rag_agent_id: "{{create_result.json_payload.id}}"
