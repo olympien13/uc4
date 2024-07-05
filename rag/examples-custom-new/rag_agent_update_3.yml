@@ -1,0 +1,14 @@
+---
+- name: Sample Ansible playbooks to manage Artificial Intelligence (AI) assistant agents in a Retrieval-Augmented Generation (RAG) architecture
+  hosts: localhost
+  gather_facts: False 
+  tasks:
+    - name: Update an AI assistant agent in a Retrieval-Augmented Generation (RAG) architecture
+      ibm.ce_emea_rag.rag_agent:
+        rag_workspace_id: "{{ rag_workspace_id }}"
+        rag_agent_id: "{{create_result.json_payload.id}}"
+        agent_name: "{{ agent_name }}"
+        method: UPDATE
+      register: update_result
+
+

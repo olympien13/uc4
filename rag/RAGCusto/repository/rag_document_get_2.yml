@@ -1,0 +1,16 @@
+---
+- name: Sample Ansible playbooks to manage documents within a Retrieval-Augmented Generation (RAG) system
+  hosts: localhost
+  gather_facts: False
+  tasks:
+    - name: Get or Retrieve a document by its ID within a Retrieval-Augmented Generation (RAG) system
+      ibm.ce_emea_rag.rag_document:
+        rag_agent_id: "{{ rag_agent_id }}"
+        rag_document_id: "{{ get_result.json_payload[0].id  }}"
+        method: GET_BY_ID
+      register: get_by_id_result
+      
+
+
+
+

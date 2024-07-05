@@ -1,6 +1,7 @@
 ---
 - name: Sample Ansible playbooks to manage documents into a Retrieval-Augmented Generation (RAG) structure
   gather_facts: False
+  hosts: localhost
   module_defaults:
     ibm.ce_emea_rag.rag_document:
       rag_api_base_url: https://rag-turbo-app-rag-turbo.apps.wxai-ocp-ga.p126.cesc.nca.ihost.com/api

@@ -1,0 +1,9 @@
+---
+- name: Sample Ansible playbooks to manage Artificial Intelligence assistant agents in a Retrieval-Augmented Generation framework
+  hosts: localhost
+  gather_facts: False 
+  tasks:
+    - name: Create an AI assistant agent in a RAG framework
+    
+
+

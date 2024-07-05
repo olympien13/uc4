@@ -1,0 +1,10 @@
+---
+- name: Sample Ansible playbooks to manage documents in a Retrieval-Augmented Generation (RAG) architecture
+  hosts: localhost
+  gather_facts: False
+  tasks:
+    - name: Get a list of documents in a Retrieval-Augmented Generation (RAG) architecture
+      ibm.ce_emea_rag.rag_document:
+        rag_agent_id: "{{ rag_agent_id }}"
+        method: LIST
+      register: get_result

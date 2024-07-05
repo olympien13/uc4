@@ -1,6 +1,7 @@
 ---
 - name: Sample Ansible playbooks to manage documents in a Retrieval-Augmented Generation (RAG) setup
   gather_facts: False
+  hosts: localhost
   module_defaults:
     ibm.ce_emea_rag.rag_document:
       rag_api_base_url: "{{ rag_api_base_url }}"
