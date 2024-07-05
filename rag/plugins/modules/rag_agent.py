@@ -70,22 +70,22 @@ def run_module():
 
     try:
         if method == 'LIST':
-            response = requests.get(f'{rag_api_base_url}/v1/agents?workspace_id={rag_workspace_id}', headers=headers, verify=False)
+            response = requests.get(f"{rag_api_base_url}/v1/agents?workspace_id={rag_workspace_id}", headers=headers, verify=False)
         elif method == 'CREATE':
-            response = requests.post(f'{rag_api_base_url}/v1/agents', json=agent_payload, headers=headers, verify=False)
+            response = requests.post(f"{rag_api_base_url}/v1/agents", json=agent_payload, headers=headers, verify=False)
         elif method == 'UPDATE':
             if rag_agent_id is not None:
-                response = requests.patch(f'{rag_api_base_url}/v1/agents/{rag_agent_id}', json=agent_payload, headers=headers, verify=False)
+                response = requests.patch(f"{rag_api_base_url}/v1/agents/{rag_agent_id}", json=agent_payload, headers=headers, verify=False)
             else:
                 module.fail_json(msg="rag_agent_id required parameter missing!")
         elif method == 'GET_BY_ID':
             if rag_agent_id is not None:
-                response = requests.get(f'{rag_api_base_url}/v1/agents/{rag_agent_id}', headers=headers, verify=False)
+                response = requests.get(f"{rag_api_base_url}/v1/agents/{rag_agent_id}", headers=headers, verify=False)
             else:
                 module.fail_json(msg="rag_agent_id required parameter missing!")      
         elif method == 'DELETE':
             if rag_agent_id is not None:
-                response = requests.delete(f'{rag_api_base_url}/v1/agents/{rag_agent_id}', headers=headers, verify=False)
+                response = requests.delete(f"{rag_api_base_url}/v1/agents/{rag_agent_id}", headers=headers, verify=False)
             else:
                 module.fail_json(msg="rag_agent_id required parameter missing!")     
         response.raise_for_status()  # Raise an error for bad status codes

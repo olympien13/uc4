@@ -1,0 +1,28 @@
+version: 3
+build_arg_defaults:
+  ANSIBLE_GALAXY_CLI_COLLECTION_OPTS: '--pre'
+dependencies:
+  galaxy: requirements.yml
+  python:
+    - six
+    - psutil
+    - requests
+  system: bindep.txt
+images:
+  base_image:
+    name: registry.redhat.io/ansible-automation-platform-24/ee-supported-rhel8:latest
+additional_build_files:
+    - src: ansible.cfg
+      dest: configs
+    - src: collections/ibm-ce_emea_rag-1.1.0.tar.gz
+      dest: mycollections/
+additional_build_steps:
+  prepend_galaxy:
+    - ADD _build/configs/ansible.cfg /home/runner/.ansible.cfg
+  prepend_final: |
+    RUN whoami
+    RUN cat /etc/os-release
+  append_final:
+    - RUN echo This is a post-install command!
+options:
+  package_manager_path: /usr/bin/microdnf 

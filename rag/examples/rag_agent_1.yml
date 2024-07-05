@@ -22,7 +22,7 @@
     - name: Create an AI assistant agent in a Retrieval-Augmented Generation (RAG) framework
       ibm.ce_emea_rag.rag_agent:
         rag_workspace_id: clxt68sy6000277c1q434saj3
-        agent_name: Lorenzo13 Charenton13
+        agent_name: Lorenzo14 Charenton14
         method: CREATE
       register: create_result
 
@@ -34,7 +34,7 @@
       ibm.ce_emea_rag.rag_agent:
         rag_workspace_id: clxt68sy6000277c1q434saj3
         rag_agent_id: "{{create_result.json_payload.id}}"
-        agent_name: "Lorenzo8 Livigni8"
+        agent_name: "Lorenzo9 Livigni9"
         method: UPDATE
       register: update_result
 

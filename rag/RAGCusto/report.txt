@@ -3,7 +3,7 @@
 ****                Ansible Content Parser Execution Report                 ****
 ********************************************************************************
 
-Date/Time             : 2024-07-04T14:46:18.809446+00:00
+Date/Time             : 2024-07-05T06:20:50.825766+00:00
 Content Parser Version: 1.0.3
 Source Repository     : ./examples-custom-new/
 Output Directory      : /Users/livigni/Documents/TNC/WCA4A/clients/CAGIP/uc4/rag/RAGCusto

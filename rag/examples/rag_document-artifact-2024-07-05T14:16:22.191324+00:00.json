@@ -1,0 +1,298 @@
+{
+    "plays": [
+        {
+            "___progress": "100%",
+            "__changed": 1,
+            "__failed": 0,
+            "__ignored": 0,
+            "__in progress": 0,
+            "__ok": 2,
+            "__percent_complete": 100,
+            "__play_name": "Sample Ansible playbooks to manage documents in a Retrieval-Augmented Generation (RAG) framework",
+            "__progress": "Complete",
+            "__skipped": 0,
+            "__task_count": 2,
+            "__unreachable": 0,
+            "name": "Sample Ansible playbooks to manage documents in a Retrieval-Augmented Generation (RAG) framework",
+            "pattern": "localhost",
+            "play": "Sample Ansible playbooks to manage documents in a Retrieval-Augmented Generation (RAG) framework",
+            "play_pattern": "localhost",
+            "play_uuid": "56451b4a-525e-ef1d-641a-000000000001",
+            "playbook": "/Users/livigni/Documents/TNC/WCA4A/clients/CAGIP-Custom/uc4/rag/examples/rag_document.yml",
+            "playbook_uuid": "c2f58f56-0e23-42bb-bab8-51a07343e9cb",
+            "tasks": [
+                {
+                    "__changed": true,
+                    "__duration": "1s",
+                    "__host": "localhost",
+                    "__number": 0,
+                    "__result": "Ok",
+                    "__task": "Get a list of documents in a Retrieval-Augmented Generation (RAG) framework",
+                    "__task_action": "ibm.ce_emea_rag.rag_document",
+                    "duration": 0.662352,
+                    "end": "2024-07-05T14:16:21.773189+00:00",
+                    "event_loop": null,
+                    "host": "localhost",
+                    "play": "Sample Ansible playbooks to manage documents in a Retrieval-Augmented Generation (RAG) framework",
+                    "play_pattern": "localhost",
+                    "play_uuid": "56451b4a-525e-ef1d-641a-000000000001",
+                    "playbook": "/Users/livigni/Documents/TNC/WCA4A/clients/CAGIP-Custom/uc4/rag/examples/rag_document.yml",
+                    "playbook_uuid": "c2f58f56-0e23-42bb-bab8-51a07343e9cb",
+                    "remote_addr": "127.0.0.1",
+                    "res": {
+                        "_ansible_no_log": false,
+                        "changed": true,
+                        "invocation": {
+                            "module_args": {
+                                "method": "LIST",
+                                "rag_agent_id": "clxt6tle8000777c1ssbpf9b2",
+                                "rag_api_base_url": "https://rag-turbo-app-rag-turbo.apps.wxai-ocp-ga.p126.cesc.nca.ihost.com/api",
+                                "rag_api_key": "sk_wrk_2MRLdOtcHpgadUefAIuW2o1l2qXZ3Qkscynkd4eXxOs9OZun",
+                                "rag_chunk_overlap": null,
+                                "rag_chunk_size": null,
+                                "rag_document_id": null,
+                                "rag_file_name": null,
+                                "rag_file_url": null,
+                                "rag_keep_files": false,
+                                "rag_password_api": "password",
+                                "rag_tmp_directory": null,
+                                "rag_username_api": "fabrice.livigni@free.fr"
+                            }
+                        },
+                        "json_payload": [
+                            {
+                                "agent_id": "clxt6tle8000777c1ssbpf9b2",
+                                "created_at": "2024-06-24T16:32:58.155Z",
+                                "file_type": "pdf",
+                                "id": "clxt7544r000n77c1un9cbu01",
+                                "is_embedding": false,
+                                "is_uploaded": true,
+                                "name": "TandC PPG 2021.pdf",
+                                "total_embeddings": 266
+                            }
+                        ],
+                        "original_message": null,
+                        "warnings": [
+                            "Module did not set no_log for rag_password_api"
+                        ]
+                    },
+                    "resolved_action": "ibm.ce_emea_rag.rag_document",
+                    "start": "2024-07-05T14:16:21.110837+00:00",
+                    "task": "Get a list of documents in a Retrieval-Augmented Generation (RAG) framework",
+                    "task_action": "ibm.ce_emea_rag.rag_document",
+                    "task_args": "",
+                    "task_path": "/Users/livigni/Documents/TNC/WCA4A/clients/CAGIP-Custom/uc4/rag/examples/rag_document.yml:15",
+                    "task_uuid": "56451b4a-525e-ef1d-641a-000000000003",
+                    "uuid": "d901423c-8671-40e8-bef3-f8f317d1647d"
+                },
+                {
+                    "__changed": false,
+                    "__duration": "0s",
+                    "__host": "localhost",
+                    "__number": 1,
+                    "__result": "Ok",
+                    "__task": "Display the list of RAG documents",
+                    "__task_action": "debug",
+                    "duration": 0.011868,
+                    "end": "2024-07-05T14:16:21.793225+00:00",
+                    "event_loop": null,
+                    "host": "localhost",
+                    "play": "Sample Ansible playbooks to manage documents in a Retrieval-Augmented Generation (RAG) framework",
+                    "play_pattern": "localhost",
+                    "play_uuid": "56451b4a-525e-ef1d-641a-000000000001",
+                    "playbook": "/Users/livigni/Documents/TNC/WCA4A/clients/CAGIP-Custom/uc4/rag/examples/rag_document.yml",
+                    "playbook_uuid": "c2f58f56-0e23-42bb-bab8-51a07343e9cb",
+                    "remote_addr": "127.0.0.1",
+                    "res": {
+                        "_ansible_no_log": false,
+                        "_ansible_verbose_always": true,
+                        "changed": false,
+                        "get_result.json_payload": [
+                            {
+                                "agent_id": "clxt6tle8000777c1ssbpf9b2",
+                                "created_at": "2024-06-24T16:32:58.155Z",
+                                "file_type": "pdf",
+                                "id": "clxt7544r000n77c1un9cbu01",
+                                "is_embedding": false,
+                                "is_uploaded": true,
+                                "name": "TandC PPG 2021.pdf",
+                                "total_embeddings": 266
+                            }
+                        ]
+                    },
+                    "resolved_action": "ansible.builtin.debug",
+                    "start": "2024-07-05T14:16:21.781357+00:00",
+                    "task": "Display the list of RAG documents",
+                    "task_action": "debug",
+                    "task_args": "",
+                    "task_path": "/Users/livigni/Documents/TNC/WCA4A/clients/CAGIP-Custom/uc4/rag/examples/rag_document.yml:21",
+                    "task_uuid": "56451b4a-525e-ef1d-641a-000000000004",
+                    "uuid": "63a3e64a-6ff6-4f87-b1d9-1ca4e8ec2622"
+                }
+            ],
+            "uuid": "56451b4a-525e-ef1d-641a-000000000001"
+        }
+    ],
+    "settings_entries": {
+        "ansible-navigator": {
+            "ansible": {
+                "config": {
+                    "help": false
+                },
+                "doc": {
+                    "help": false,
+                    "plugin": {
+                        "type": "module"
+                    }
+                },
+                "inventory": {
+                    "help": false
+                },
+                "playbook": {
+                    "help": false,
+                    "path": "/Users/livigni/Documents/TNC/WCA4A/clients/CAGIP-Custom/uc4/rag/examples/rag_document.yml"
+                }
+            },
+            "ansible-builder": {
+                "help": false,
+                "workdir": "/Users/livigni/Documents/TNC"
+            },
+            "ansible-runner": {
+                "job-events": false
+            },
+            "app": "run",
+            "collection-doc-cache-path": "/Users/livigni/.cache/ansible-navigator/collection_doc_cache.db",
+            "color": {
+                "enable": true,
+                "osc4": true
+            },
+            "editor": {
+                "command": "vi +{line_number} {filename}",
+                "console": true
+            },
+            "enable-prompts": false,
+            "exec": {
+                "command": "/bin/bash",
+                "shell": true
+            },
+            "execution-environment": {
+                "container-engine": "podman",
+                "enabled": true,
+                "image": "quay.io/tncibmniceteam/ee-supported-rag-rhel8:latest",
+                "pull": {
+                    "policy": "tag"
+                }
+            },
+            "format": "yaml",
+            "images": {
+                "details": [
+                    "everything"
+                ]
+            },
+            "logging": {
+                "append": true,
+                "file": "/Users/livigni/Documents/TNC/ansible-navigator.log",
+                "level": "warning"
+            },
+            "mode": "interactive",
+            "playbook-artifact": {
+                "enable": true,
+                "save-as": "{playbook_dir}/{playbook_name}-artifact-{time_stamp}.json"
+            },
+            "settings": {
+                "effective": false,
+                "sample": false,
+                "schema": "json",
+                "sources": false
+            },
+            "time-zone": "UTC"
+        }
+    },
+    "settings_sources": {
+        "ansible-navigator.ansible-builder.help": "Defaults",
+        "ansible-navigator.ansible-builder.workdir": "Defaults",
+        "ansible-navigator.ansible-lint.config": "Not set",
+        "ansible-navigator.ansible-lint.lintables": "Not set",
+        "ansible-navigator.ansible-runner.artifact-dir": "Not set",
+        "ansible-navigator.ansible-runner.job-events": "Defaults",
+        "ansible-navigator.ansible-runner.rotate-artifacts-count": "Not set",
+        "ansible-navigator.ansible-runner.timeout": "Not set",
+        "ansible-navigator.ansible.cmdline": "Not set",
+        "ansible-navigator.ansible.config.help": "Defaults",
+        "ansible-navigator.ansible.config.path": "Not set",
+        "ansible-navigator.ansible.doc.help": "Defaults",
+        "ansible-navigator.ansible.doc.plugin.name": "Not set",
+        "ansible-navigator.ansible.doc.plugin.type": "Defaults",
+        "ansible-navigator.ansible.inventory.entries": "Not set",
+        "ansible-navigator.ansible.inventory.help": "Defaults",
+        "ansible-navigator.ansible.playbook.help": "Defaults",
+        "ansible-navigator.ansible.playbook.path": "Previous cli command",
+        "ansible-navigator.app": "Command line",
+        "ansible-navigator.collection-doc-cache-path": "Defaults",
+        "ansible-navigator.color.enable": "Defaults",
+        "ansible-navigator.color.osc4": "Defaults",
+        "ansible-navigator.editor.command": "Defaults",
+        "ansible-navigator.editor.console": "Defaults",
+        "ansible-navigator.enable-prompts": "Defaults",
+        "ansible-navigator.exec.command": "Defaults",
+        "ansible-navigator.exec.shell": "Defaults",
+        "ansible-navigator.execution-environment.container-engine": "Previous cli command",
+        "ansible-navigator.execution-environment.container-options": "Not set",
+        "ansible-navigator.execution-environment.enabled": "Previous cli command",
+        "ansible-navigator.execution-environment.environment-variables.pass": "Not set",
+        "ansible-navigator.execution-environment.environment-variables.set": "Not set",
+        "ansible-navigator.execution-environment.image": "Previous cli command",
+        "ansible-navigator.execution-environment.pull.arguments": "Not set",
+        "ansible-navigator.execution-environment.pull.policy": "Defaults",
+        "ansible-navigator.execution-environment.volume-mounts": "Not set",
+        "ansible-navigator.format": "Defaults",
+        "ansible-navigator.images.details": "Defaults",
+        "ansible-navigator.inventory-columns": "Not set",
+        "ansible-navigator.logging.append": "Defaults",
+        "ansible-navigator.logging.file": "Defaults",
+        "ansible-navigator.logging.level": "Defaults",
+        "ansible-navigator.mode": "Defaults",
+        "ansible-navigator.playbook-artifact.enable": "Defaults",
+        "ansible-navigator.playbook-artifact.replay": "Not set",
+        "ansible-navigator.playbook-artifact.save-as": "Defaults",
+        "ansible-navigator.settings.effective": "Defaults",
+        "ansible-navigator.settings.sample": "Defaults",
+        "ansible-navigator.settings.schema": "Defaults",
+        "ansible-navigator.settings.sources": "Defaults",
+        "ansible-navigator.time-zone": "Defaults",
+        "settings_file_path": "None",
+        "settings_file_source": "None"
+    },
+    "status": "successful",
+    "status_color": 10,
+    "stdout": [
+        "\u001b[1;35m[WARNING]: provided hosts list is empty, only localhost is available. Note that\u001b[0m",
+        "\u001b[1;35mthe implicit localhost does not match 'all'\u001b[0m",
+        "",
+        "PLAY [Sample Ansible playbooks to manage documents in a Retrieval-Augmented Generation (RAG) framework] ***",
+        "",
+        "TASK [Get a list of documents in a Retrieval-Augmented Generation (RAG) framework] ***",
+        "\u001b[1;35m[WARNING]: Module did not set no_log for rag_password_api\u001b[0m",
+        "\u001b[0;33mchanged: [localhost]\u001b[0m",
+        "",
+        "TASK [Display the list of RAG documents] ***************************************",
+        "\u001b[0;32mok: [localhost] => {\u001b[0m",
+        "\u001b[0;32m    \"get_result.json_payload\": [\u001b[0m",
+        "\u001b[0;32m        {\u001b[0m",
+        "\u001b[0;32m            \"agent_id\": \"clxt6tle8000777c1ssbpf9b2\",\u001b[0m",
+        "\u001b[0;32m            \"created_at\": \"2024-06-24T16:32:58.155Z\",\u001b[0m",
+        "\u001b[0;32m            \"file_type\": \"pdf\",\u001b[0m",
+        "\u001b[0;32m            \"id\": \"clxt7544r000n77c1un9cbu01\",\u001b[0m",
+        "\u001b[0;32m            \"is_embedding\": false,\u001b[0m",
+        "\u001b[0;32m            \"is_uploaded\": true,\u001b[0m",
+        "\u001b[0;32m            \"name\": \"TandC PPG 2021.pdf\",\u001b[0m",
+        "\u001b[0;32m            \"total_embeddings\": 266\u001b[0m",
+        "\u001b[0;32m        }\u001b[0m",
+        "\u001b[0;32m    ]\u001b[0m",
+        "\u001b[0;32m}\u001b[0m",
+        "",
+        "PLAY RECAP *********************************************************************",
+        "\u001b[0;33mlocalhost\u001b[0m                  : \u001b[0;32mok=2   \u001b[0m \u001b[0;33mchanged=1   \u001b[0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   "
+    ],
+    "version": "2.0.0"
+}

@@ -1,0 +1,24 @@
+---
+- name: Sample Ansible playbooks to manage documents in a Retrieval-Augmented Generation (RAG) framework
+  hosts: localhost
+  gather_facts: False
+  module_defaults:
+    ibm.ce_emea_rag.rag_document:
+      rag_api_base_url: https://rag-turbo-app-rag-turbo.apps.wxai-ocp-ga.p126.cesc.nca.ihost.com/api
+      rag_username_api: fabrice.livigni@free.fr
+      rag_password_api: password
+      rag_api_key: sk_wrk_2MRLdOtcHpgadUefAIuW2o1l2qXZ3Qkscynkd4eXxOs9OZun
+
+  tasks:
+
+
+    - name: Get a list of documents in a Retrieval-Augmented Generation (RAG) framework
+      ibm.ce_emea_rag.rag_document:
+        rag_agent_id: clxt6tle8000777c1ssbpf9b2
+        method: LIST
+      register: get_result
+
+    - name: Display the list of RAG documents
+      debug:
+        var: get_result.json_payload
+
