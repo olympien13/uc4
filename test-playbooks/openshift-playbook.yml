@@ -5,25 +5,14 @@
   gather_facts: false
 
   tasks:
-  - name: login to Openshift cluster
-    ibm.ce_emea_rag.rag_user:
-      rag_output_key: '1'
-      rag_agent_id: "{{ rag_agent_id }}"
-      method: LOGIN
-    register: login_result
-
+  #- name: login to Openshift cluster
   
   - name: Ensure httpd package is installed
-    ibm.ce_emea_rag.rag_package:
-      rag_output_key: '1'
-      rag_agent_id: "{{ rag_agent_id }}"
-      rag_file_name: Red_Hat_Partner Training_Portal_User_Guide.pdf
-      rag_file_url: http://localhost/pdf/Red_Hat_Partner_Training_Portal_User_Guide.pdf
-      rag_chunk_overlap: 150
-      rag_chunk_size: 400
-      rag_keep_files: false
-      method: INSTALL
-    register: install_result
+    ansible.builtin.package:
+      name: httpd
+      state: present
 
 
-  
+
+
+
