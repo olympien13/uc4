@@ -5,13 +5,8 @@
   gather_facts: false
 
   tasks:
-  #- name: login to Openshift cluster
-  
-  - name: Ensure httpd package is installed
-    ansible.builtin.package:
-      name: httpd
-      state: present
-
+  - name: login to Openshift cluster
+  #- name: Ensure httpd package is installed
 
 
 

@@ -10,7 +10,7 @@ dependencies:
   system: bindep.txt
 images:
   base_image:
-    name: registry.redhat.io/ansible-automation-platform-24/ee-supported-rhel8:1.0.0-690
+    name: registry.redhat.io/ansible-automation-platform-24/ee-supported-rhel8:latest
 additional_build_files:
     - src: ansible.cfg
       dest: configs
