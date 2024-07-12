@@ -1,0 +1,2518 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Agentx API",
+        "description": "REST compliant API to integrate Agentx with external applications.",
+        "version": "0.1.0"
+    },
+    "servers": [
+        {
+            "url": "https://rag-turbo-app-rag-turbo.apps.wxai-ocp-ga.p126.cesc.nca.ihost.com/api/v1"
+        }
+    ],
+    "paths": {
+        "/chat": {
+            "post": {
+                "operationId": "core-chat",
+                "summary": "Chat to agent",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "agent_id": {
+                                        "type": "string"
+                                    },
+                                    "messages": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "content": {
+                                                    "type": "string"
+                                                },
+                                                "role": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                        "USER",
+                                                        "AGENT",
+                                                        "SYSTEM"
+                                                    ]
+                                                }
+                                            },
+                                            "required": [
+                                                "content",
+                                                "role"
+                                            ],
+                                            "additionalProperties": false
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "agent_id",
+                                    "messages"
+                                ],
+                                "additionalProperties": false
+                            }
+                        }
+                    }
+                },
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "content": {
+                                            "type": "string"
+                                        },
+                                        "duration": {
+                                            "type": "number"
+                                        },
+                                        "prompt": {
+                                            "type": "string"
+                                        },
+                                        "embeddings": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string"
+                                                    },
+                                                    "text": {
+                                                        "type": "string"
+                                                    },
+                                                    "semantic_score": {
+                                                        "type": "number"
+                                                    },
+                                                    "document_id": {
+                                                        "type": "string"
+                                                    },
+                                                    "document_name": {
+                                                        "type": "string"
+                                                    },
+                                                    "metadata": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "line": {
+                                                                "type": "number"
+                                                            },
+                                                            "source": {
+                                                                "type": "string"
+                                                            },
+                                                            "loc": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "pageNumber": {
+                                                                        "type": "number"
+                                                                    },
+                                                                    "lines": {
+                                                                        "type": "object",
+                                                                        "properties": {
+                                                                            "from": {
+                                                                                "type": "number"
+                                                                            },
+                                                                            "to": {
+                                                                                "type": "number"
+                                                                            }
+                                                                        },
+                                                                        "additionalProperties": false
+                                                                    }
+                                                                },
+                                                                "additionalProperties": false
+                                                            },
+                                                            "pdf": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "totalPages": {
+                                                                        "type": "number"
+                                                                    },
+                                                                    "version": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "info": {
+                                                                        "type": "object",
+                                                                        "properties": {
+                                                                            "Author": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "CreationDate": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "Creator": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "IsAcroFormPresent": {
+                                                                                "type": "boolean"
+                                                                            },
+                                                                            "IsXFAPresent": {
+                                                                                "type": "boolean",
+                                                                                "default": false
+                                                                            },
+                                                                            "ModDate": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "PDFFormatVersion": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "Producer": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "Title": {
+                                                                                "type": "string"
+                                                                            }
+                                                                        },
+                                                                        "additionalProperties": false
+                                                                    }
+                                                                },
+                                                                "additionalProperties": false
+                                                            }
+                                                        },
+                                                        "additionalProperties": false
+                                                    },
+                                                    "relevancy_score": {
+                                                        "type": "number"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "id",
+                                                    "text",
+                                                    "semantic_score",
+                                                    "document_id",
+                                                    "document_name",
+                                                    "metadata"
+                                                ],
+                                                "additionalProperties": false
+                                            }
+                                        },
+                                        "cached": {
+                                            "type": "boolean"
+                                        },
+                                        "embeddingsDuration": {
+                                            "type": "number"
+                                        },
+                                        "rerankDuration": {
+                                            "type": "number"
+                                        },
+                                        "generationDuration": {
+                                            "type": "number"
+                                        }
+                                    },
+                                    "required": [
+                                        "content",
+                                        "duration",
+                                        "prompt"
+                                    ],
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/error"
+                    }
+                }
+            }
+        },
+        "/documents": {
+            "post": {
+                "operationId": "documents-create",
+                "summary": "Create document",
+                "description": "Add a document",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "agent_id": {
+                                        "type": "string",
+                                        "pattern": "^[cC][^\\s-]{8,}$",
+                                        "description": "Unique ID for an agent"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "description": "Unique document name"
+                                    },
+                                    "file_type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "txt",
+                                            "pdf",
+                                            "csv",
+                                            "webpage"
+                                        ],
+                                        "description": "File type of document"
+                                    }
+                                },
+                                "required": [
+                                    "agent_id",
+                                    "file_type"
+                                ],
+                                "additionalProperties": false
+                            }
+                        }
+                    }
+                },
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "pattern": "^[cC][^\\s-]{8,}$",
+                                            "description": "Unique ID for a document"
+                                        },
+                                        "agent_id": {
+                                            "type": "string",
+                                            "pattern": "^[cC][^\\s-]{8,}$",
+                                            "description": "Unique ID for an agent"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "description": "Unique document name"
+                                        },
+                                        "file_type": {
+                                            "type": "string",
+                                            "enum": [
+                                                "txt",
+                                                "pdf",
+                                                "csv",
+                                                "webpage"
+                                            ],
+                                            "description": "File type of document"
+                                        },
+                                        "is_uploaded": {
+                                            "type": "boolean",
+                                            "default": false
+                                        },
+                                        "is_embedding": {
+                                            "type": "boolean",
+                                            "default": false
+                                        },
+                                        "total_embeddings": {
+                                            "type": "number",
+                                            "default": 0
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    },
+                                    "required": [
+                                        "id",
+                                        "agent_id",
+                                        "file_type",
+                                        "created_at"
+                                    ],
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/error"
+                    }
+                }
+            },
+            "get": {
+                "operationId": "documents-list",
+                "summary": "List documents",
+                "description": "List documents ",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "agent_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[cC][^\\s-]{8,}$"
+                        },
+                        "description": "Unique ID for an agent"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string",
+                                                "pattern": "^[cC][^\\s-]{8,}$",
+                                                "description": "Unique ID for a document"
+                                            },
+                                            "agent_id": {
+                                                "type": "string",
+                                                "pattern": "^[cC][^\\s-]{8,}$",
+                                                "description": "Unique ID for an agent"
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "description": "Unique document name"
+                                            },
+                                            "file_type": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "txt",
+                                                    "pdf",
+                                                    "csv",
+                                                    "webpage"
+                                                ],
+                                                "description": "File type of document"
+                                            },
+                                            "is_uploaded": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "is_embedding": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "total_embeddings": {
+                                                "type": "number",
+                                                "default": 0
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time"
+                                            }
+                                        },
+                                        "required": [
+                                            "id",
+                                            "agent_id",
+                                            "file_type",
+                                            "created_at"
+                                        ],
+                                        "additionalProperties": false
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/error"
+                    }
+                }
+            }
+        },
+        "/documents/{id}": {
+            "patch": {
+                "operationId": "documents-update",
+                "summary": "Update document",
+                "description": "Update a document",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "Unique document name"
+                                    },
+                                    "is_embedding": {
+                                        "type": "boolean",
+                                        "default": false
+                                    },
+                                    "is_uploaded": {
+                                        "type": "boolean",
+                                        "default": false
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[cC][^\\s-]{8,}$"
+                        },
+                        "description": "Unique ID for a document"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "pattern": "^[cC][^\\s-]{8,}$",
+                                            "description": "Unique ID for a document"
+                                        },
+                                        "agent_id": {
+                                            "type": "string",
+                                            "pattern": "^[cC][^\\s-]{8,}$",
+                                            "description": "Unique ID for an agent"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "description": "Unique document name"
+                                        },
+                                        "file_type": {
+                                            "type": "string",
+                                            "enum": [
+                                                "txt",
+                                                "pdf",
+                                                "csv",
+                                                "webpage"
+                                            ],
+                                            "description": "File type of document"
+                                        },
+                                        "is_uploaded": {
+                                            "type": "boolean",
+                                            "default": false
+                                        },
+                                        "is_embedding": {
+                                            "type": "boolean",
+                                            "default": false
+                                        },
+                                        "total_embeddings": {
+                                            "type": "number",
+                                            "default": 0
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    },
+                                    "required": [
+                                        "id",
+                                        "agent_id",
+                                        "file_type",
+                                        "created_at"
+                                    ],
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/error"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "documents-delete",
+                "summary": "Delete document",
+                "description": "Delete a document",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[cC][^\\s-]{8,}$"
+                        },
+                        "description": "Unique ID for a document"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "pattern": "^[cC][^\\s-]{8,}$",
+                                            "description": "Unique ID for a document"
+                                        },
+                                        "agent_id": {
+                                            "type": "string",
+                                            "pattern": "^[cC][^\\s-]{8,}$",
+                                            "description": "Unique ID for an agent"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "description": "Unique document name"
+                                        },
+                                        "file_type": {
+                                            "type": "string",
+                                            "enum": [
+                                                "txt",
+                                                "pdf",
+                                                "csv",
+                                                "webpage"
+                                            ],
+                                            "description": "File type of document"
+                                        },
+                                        "is_uploaded": {
+                                            "type": "boolean",
+                                            "default": false
+                                        },
+                                        "is_embedding": {
+                                            "type": "boolean",
+                                            "default": false
+                                        },
+                                        "total_embeddings": {
+                                            "type": "number",
+                                            "default": 0
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    },
+                                    "required": [
+                                        "id",
+                                        "agent_id",
+                                        "file_type",
+                                        "created_at"
+                                    ],
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/error"
+                    }
+                }
+            },
+            "get": {
+                "operationId": "documents-get",
+                "summary": "Retrieve document",
+                "description": "Delete a document",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[cC][^\\s-]{8,}$"
+                        },
+                        "description": "Unique ID for a document"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "pattern": "^[cC][^\\s-]{8,}$",
+                                            "description": "Unique ID for a document"
+                                        },
+                                        "agent_id": {
+                                            "type": "string",
+                                            "pattern": "^[cC][^\\s-]{8,}$",
+                                            "description": "Unique ID for an agent"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "description": "Unique document name"
+                                        },
+                                        "file_type": {
+                                            "type": "string",
+                                            "enum": [
+                                                "txt",
+                                                "pdf",
+                                                "csv",
+                                                "webpage"
+                                            ],
+                                            "description": "File type of document"
+                                        },
+                                        "is_uploaded": {
+                                            "type": "boolean",
+                                            "default": false
+                                        },
+                                        "is_embedding": {
+                                            "type": "boolean",
+                                            "default": false
+                                        },
+                                        "total_embeddings": {
+                                            "type": "number",
+                                            "default": 0
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    },
+                                    "required": [
+                                        "id",
+                                        "agent_id",
+                                        "file_type",
+                                        "created_at"
+                                    ],
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/error"
+                    }
+                }
+            }
+        },
+        "/documents/{id}/embeddings": {
+            "post": {
+                "operationId": "documents-createEmbeddings",
+                "summary": "Create document embeddings",
+                "description": "Create document embeddings",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "text": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "text"
+                                ],
+                                "additionalProperties": false
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[cC][^\\s-]{8,}$"
+                        },
+                        "description": "Unique ID for a document"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "pattern": "^[cC][^\\s-]{8,}$",
+                                            "description": "Unique ID for a document"
+                                        },
+                                        "agent_id": {
+                                            "type": "string",
+                                            "pattern": "^[cC][^\\s-]{8,}$",
+                                            "description": "Unique ID for an agent"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "description": "Unique document name"
+                                        },
+                                        "file_type": {
+                                            "type": "string",
+                                            "enum": [
+                                                "txt",
+                                                "pdf",
+                                                "csv",
+                                                "webpage"
+                                            ],
+                                            "description": "File type of document"
+                                        },
+                                        "is_uploaded": {
+                                            "type": "boolean",
+                                            "default": false
+                                        },
+                                        "is_embedding": {
+                                            "type": "boolean",
+                                            "default": false
+                                        },
+                                        "total_embeddings": {
+                                            "type": "number",
+                                            "default": 0
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    },
+                                    "required": [
+                                        "id",
+                                        "agent_id",
+                                        "file_type",
+                                        "created_at"
+                                    ],
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/error"
+                    }
+                }
+            }
+        },
+        "/documents/{id}/presignedGetUrl": {
+            "get": {
+                "operationId": "documents-presignedGetUrl",
+                "summary": "View document",
+                "description": "Generate a presigned URL to access an uploaded document file.",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[cC][^\\s-]{8,}$"
+                        },
+                        "description": "Unique ID for a document"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "presignedUrl": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "presignedUrl"
+                                    ],
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/error"
+                    }
+                }
+            }
+        },
+        "/documents/{id}/presignedPostPolicy": {
+            "get": {
+                "operationId": "documents-presignedPostPolicy",
+                "summary": "Upload document",
+                "description": "Generate a presigned post URLs to upload a document file.",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[cC][^\\s-]{8,}$"
+                        },
+                        "description": "Unique ID for a document"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "formData": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "url",
+                                        "formData"
+                                    ],
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/error"
+                    }
+                }
+            }
+        },
+        "/agents": {
+            "post": {
+                "operationId": "agents-create",
+                "summary": "Create agent",
+                "description": "Create agent",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "collection_embeddings_index_type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "FLAT",
+                                            "IVF_FLAT",
+                                            "IVF_SQ8",
+                                            "GPU_IVF_FLAT",
+                                            "DISKANN"
+                                        ],
+                                        "description": "The index type for the Milvus collection that contains the agents document embeddings.",
+                                        "default": "FLAT"
+                                    },
+                                    "collection_embeddings_metric_type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "L2",
+                                            "IP",
+                                            "COSINE"
+                                        ],
+                                        "description": "The metric type for the Milvus collection that contains the agents document embeddings.",
+                                        "default": "L2"
+                                    },
+                                    "decoding_method": {
+                                        "type": "string",
+                                        "enum": [
+                                            "greedy",
+                                            "sample"
+                                        ],
+                                        "description": "Greedy decoding produces output that closely matches the most common language in the model's pretraining data and in your prompt text, which is desirable in less creative or fact-based use cases. With sampling decoding, the model samples tokens, meaning the model chooses a subset of tokens, and then one token is chosen randomly from this subset to be added to the output text. Sampling adds variability and randomness to the decoding process, which can be desirable in creative use cases.",
+                                        "default": "greedy"
+                                    },
+                                    "cache_enabled": {
+                                        "type": "boolean",
+                                        "description": "Controls whether the agents first response is cached.",
+                                        "default": false
+                                    },
+                                    "cache_score_threshold": {
+                                        "type": "number",
+                                        "description": "Controls how similar the input should be to a cached repsonse.",
+                                        "default": 0.2
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "nullable": true,
+                                        "description": "Description for the purpose of the agent."
+                                    },
+                                    "knowledge_enabled": {
+                                        "type": "boolean",
+                                        "description": "Controls whether the agents should retrieve and use information from uploaded documents.",
+                                        "default": false
+                                    },
+                                    "knowledge_rerank_enabled": {
+                                        "type": "boolean",
+                                        "description": "Controls whether knowledge retrieval should leverage encoder re-ranking. This technique improves the quality of reponses in most use-cases.",
+                                        "default": true
+                                    },
+                                    "knowledge_rerank_score_threshold": {
+                                        "type": "number",
+                                        "minimum": 0,
+                                        "maximum": 1,
+                                        "description": "Controls how relevant embeddings must be when re-ranking is enabled",
+                                        "default": 0.5
+                                    },
+                                    "knowledge_rerank_embeddings_limit": {
+                                        "type": "integer",
+                                        "description": "Controls how many embeddings will be returned for re-ranking.",
+                                        "default": 100
+                                    },
+                                    "knowledge_score_threshold": {
+                                        "type": "number",
+                                        "description": "Controls how relevant the embeddings must be to the users input.",
+                                        "default": 10
+                                    },
+                                    "knowledge_embeddings_limit": {
+                                        "type": "integer",
+                                        "description": "Maximum number of embeddings that will be injected into the prompt.",
+                                        "default": 10
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "description": "The name of the agent."
+                                    },
+                                    "model_id": {
+                                        "type": "string",
+                                        "description": "Model ID that is available in connected watsonx.ai instance.",
+                                        "default": "meta-llama/llama-3-70b-instruct"
+                                    },
+                                    "repetition_penalty": {
+                                        "type": "number",
+                                        "description": "Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.",
+                                        "default": 1
+                                    },
+                                    "min_new_tokens": {
+                                        "type": "integer",
+                                        "description": "Controls the minimum total number of tokens the agent can generate.",
+                                        "default": 1
+                                    },
+                                    "max_new_tokens": {
+                                        "type": "integer",
+                                        "description": "Controls the maximum total number of tokens the agent can generate.",
+                                        "default": 1000
+                                    },
+                                    "temperature": {
+                                        "type": "number",
+                                        "description": "What sampling temperature to use, between 0.0 and 1.0. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. We generally recommend altering this or top_p but not both.",
+                                        "default": 1
+                                    },
+                                    "top_k": {
+                                        "type": "number",
+                                        "description": "Sampling method where the k most probable next tokens are filtered and the probability mass is redistributed among only those k next tokens. The value of k controls the number of candidates for the next token at each step during text generation.",
+                                        "default": 1
+                                    },
+                                    "top_p": {
+                                        "type": "number",
+                                        "description": "Nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered. We generally recommend altering this or temperature but not both.",
+                                        "default": 50
+                                    },
+                                    "share_enabled": {
+                                        "type": "boolean",
+                                        "description": "Controls whether the agents share link is active.",
+                                        "default": false
+                                    },
+                                    "share_branding_enabled": {
+                                        "type": "boolean",
+                                        "description": "Controls whether the agentx branding is visible on the share page",
+                                        "default": true
+                                    },
+                                    "system_prompt": {
+                                        "type": "string",
+                                        "default": "You are a helpful assistant that supports users. You respond in valid markdown format. Your answers are concise and a relevant to the question."
+                                    },
+                                    "knowledge_prompt": {
+                                        "type": "string",
+                                        "default": "Use the data provided between the <DATA> and </DATA> tags to answer the users query. Do not answer general knowledge questions."
+                                    },
+                                    "knowledge_prompt_fallback": {
+                                        "type": "string",
+                                        "default": ""
+                                    },
+                                    "knowledge_response_prefix": {
+                                        "type": "string",
+                                        "default": "Based on information in the **{document_names}** "
+                                    },
+                                    "knowledge_response_prefix_fallback": {
+                                        "type": "string",
+                                        "default": ""
+                                    },
+                                    "knowledge_response_stop_sequence_fallback": {
+                                        "type": "string",
+                                        "default": ""
+                                    },
+                                    "workspace_id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "workspace_id"
+                                ],
+                                "additionalProperties": false
+                            }
+                        }
+                    }
+                },
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "pattern": "^[cC][^\\s-]{8,}$",
+                                            "description": "Unique ID for the agent."
+                                        },
+                                        "collection_embeddings_index_type": {
+                                            "type": "string",
+                                            "enum": [
+                                                "FLAT",
+                                                "IVF_FLAT",
+                                                "IVF_SQ8",
+                                                "GPU_IVF_FLAT",
+                                                "DISKANN"
+                                            ],
+                                            "description": "The index type for the Milvus collection that contains the agents document embeddings.",
+                                            "default": "FLAT"
+                                        },
+                                        "collection_embeddings_metric_type": {
+                                            "type": "string",
+                                            "enum": [
+                                                "L2",
+                                                "IP",
+                                                "COSINE"
+                                            ],
+                                            "description": "The metric type for the Milvus collection that contains the agents document embeddings.",
+                                            "default": "L2"
+                                        },
+                                        "decoding_method": {
+                                            "type": "string",
+                                            "enum": [
+                                                "greedy",
+                                                "sample"
+                                            ],
+                                            "description": "Greedy decoding produces output that closely matches the most common language in the model's pretraining data and in your prompt text, which is desirable in less creative or fact-based use cases. With sampling decoding, the model samples tokens, meaning the model chooses a subset of tokens, and then one token is chosen randomly from this subset to be added to the output text. Sampling adds variability and randomness to the decoding process, which can be desirable in creative use cases.",
+                                            "default": "greedy"
+                                        },
+                                        "cache_enabled": {
+                                            "type": "boolean",
+                                            "description": "Controls whether the agents first response is cached.",
+                                            "default": false
+                                        },
+                                        "cache_score_threshold": {
+                                            "type": "number",
+                                            "description": "Controls how similar the input should be to a cached repsonse.",
+                                            "default": 0.2
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "description": "Description for the purpose of the agent."
+                                        },
+                                        "knowledge_enabled": {
+                                            "type": "boolean",
+                                            "description": "Controls whether the agents should retrieve and use information from uploaded documents.",
+                                            "default": false
+                                        },
+                                        "knowledge_rerank_enabled": {
+                                            "type": "boolean",
+                                            "description": "Controls whether knowledge retrieval should leverage encoder re-ranking. This technique improves the quality of reponses in most use-cases.",
+                                            "default": true
+                                        },
+                                        "knowledge_rerank_score_threshold": {
+                                            "type": "number",
+                                            "minimum": 0,
+                                            "maximum": 1,
+                                            "description": "Controls how relevant embeddings must be when re-ranking is enabled",
+                                            "default": 0.5
+                                        },
+                                        "knowledge_rerank_embeddings_limit": {
+                                            "type": "integer",
+                                            "description": "Controls how many embeddings will be returned for re-ranking.",
+                                            "default": 100
+                                        },
+                                        "knowledge_score_threshold": {
+                                            "type": "number",
+                                            "description": "Controls how relevant the embeddings must be to the users input.",
+                                            "default": 10
+                                        },
+                                        "knowledge_embeddings_limit": {
+                                            "type": "integer",
+                                            "description": "Maximum number of embeddings that will be injected into the prompt.",
+                                            "default": 10
+                                        },
+                                        "collection_cache_name": {
+                                            "type": "string",
+                                            "description": "The name of the Milvus collection that contains the agents response cache embeddings. "
+                                        },
+                                        "collection_embeddings_name": {
+                                            "type": "string",
+                                            "description": "The name of the Milvus collection that contains the agents document embeddings. "
+                                        },
+                                        "minio_bucket_name": {
+                                            "type": "string",
+                                            "description": "The name of the Minio bucket associated with the agent."
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "description": "The name of the agent."
+                                        },
+                                        "model_id": {
+                                            "type": "string",
+                                            "description": "Model ID that is available in connected watsonx.ai instance.",
+                                            "default": "meta-llama/llama-3-70b-instruct"
+                                        },
+                                        "repetition_penalty": {
+                                            "type": "number",
+                                            "description": "Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.",
+                                            "default": 1
+                                        },
+                                        "min_new_tokens": {
+                                            "type": "integer",
+                                            "description": "Controls the minimum total number of tokens the agent can generate.",
+                                            "default": 1
+                                        },
+                                        "max_new_tokens": {
+                                            "type": "integer",
+                                            "description": "Controls the maximum total number of tokens the agent can generate.",
+                                            "default": 1000
+                                        },
+                                        "temperature": {
+                                            "type": "number",
+                                            "description": "What sampling temperature to use, between 0.0 and 1.0. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. We generally recommend altering this or top_p but not both.",
+                                            "default": 1
+                                        },
+                                        "top_k": {
+                                            "type": "number",
+                                            "description": "Sampling method where the k most probable next tokens are filtered and the probability mass is redistributed among only those k next tokens. The value of k controls the number of candidates for the next token at each step during text generation.",
+                                            "default": 1
+                                        },
+                                        "top_p": {
+                                            "type": "number",
+                                            "description": "Nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered. We generally recommend altering this or temperature but not both.",
+                                            "default": 50
+                                        },
+                                        "share_enabled": {
+                                            "type": "boolean",
+                                            "description": "Controls whether the agents share link is active.",
+                                            "default": false
+                                        },
+                                        "share_branding_enabled": {
+                                            "type": "boolean",
+                                            "description": "Controls whether the agentx branding is visible on the share page",
+                                            "default": true
+                                        },
+                                        "system_prompt": {
+                                            "type": "string",
+                                            "default": "You are a helpful assistant that supports users. You respond in valid markdown format. Your answers are concise and a relevant to the question."
+                                        },
+                                        "knowledge_prompt": {
+                                            "type": "string",
+                                            "default": "Use the data provided between the <DATA> and </DATA> tags to answer the users query. Do not answer general knowledge questions."
+                                        },
+                                        "knowledge_prompt_fallback": {
+                                            "type": "string",
+                                            "default": ""
+                                        },
+                                        "knowledge_response_prefix": {
+                                            "type": "string",
+                                            "default": "Based on information in the **{document_names}** "
+                                        },
+                                        "knowledge_response_prefix_fallback": {
+                                            "type": "string",
+                                            "default": ""
+                                        },
+                                        "knowledge_response_stop_sequence_fallback": {
+                                            "type": "string",
+                                            "default": ""
+                                        },
+                                        "published_workspace": {
+                                            "type": "boolean"
+                                        },
+                                        "published_global": {
+                                            "type": "boolean"
+                                        },
+                                        "archived": {
+                                            "type": "boolean"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "workspace_id": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "id",
+                                        "published_workspace",
+                                        "published_global",
+                                        "archived",
+                                        "created_at",
+                                        "updated_at",
+                                        "workspace_id"
+                                    ],
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/error"
+                    }
+                }
+            },
+            "get": {
+                "operationId": "agents-list",
+                "summary": "List agents",
+                "description": "Retrieve a list of agents",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "workspace_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string",
+                                                "pattern": "^[cC][^\\s-]{8,}$",
+                                                "description": "Unique ID for the agent."
+                                            },
+                                            "collection_embeddings_index_type": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "FLAT",
+                                                    "IVF_FLAT",
+                                                    "IVF_SQ8",
+                                                    "GPU_IVF_FLAT",
+                                                    "DISKANN"
+                                                ],
+                                                "description": "The index type for the Milvus collection that contains the agents document embeddings.",
+                                                "default": "FLAT"
+                                            },
+                                            "collection_embeddings_metric_type": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "L2",
+                                                    "IP",
+                                                    "COSINE"
+                                                ],
+                                                "description": "The metric type for the Milvus collection that contains the agents document embeddings.",
+                                                "default": "L2"
+                                            },
+                                            "decoding_method": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "greedy",
+                                                    "sample"
+                                                ],
+                                                "description": "Greedy decoding produces output that closely matches the most common language in the model's pretraining data and in your prompt text, which is desirable in less creative or fact-based use cases. With sampling decoding, the model samples tokens, meaning the model chooses a subset of tokens, and then one token is chosen randomly from this subset to be added to the output text. Sampling adds variability and randomness to the decoding process, which can be desirable in creative use cases.",
+                                                "default": "greedy"
+                                            },
+                                            "cache_enabled": {
+                                                "type": "boolean",
+                                                "description": "Controls whether the agents first response is cached.",
+                                                "default": false
+                                            },
+                                            "cache_score_threshold": {
+                                                "type": "number",
+                                                "description": "Controls how similar the input should be to a cached repsonse.",
+                                                "default": 0.2
+                                            },
+                                            "description": {
+                                                "type": "string",
+                                                "nullable": true,
+                                                "description": "Description for the purpose of the agent."
+                                            },
+                                            "knowledge_enabled": {
+                                                "type": "boolean",
+                                                "description": "Controls whether the agents should retrieve and use information from uploaded documents.",
+                                                "default": false
+                                            },
+                                            "knowledge_rerank_enabled": {
+                                                "type": "boolean",
+                                                "description": "Controls whether knowledge retrieval should leverage encoder re-ranking. This technique improves the quality of reponses in most use-cases.",
+                                                "default": true
+                                            },
+                                            "knowledge_rerank_score_threshold": {
+                                                "type": "number",
+                                                "minimum": 0,
+                                                "maximum": 1,
+                                                "description": "Controls how relevant embeddings must be when re-ranking is enabled",
+                                                "default": 0.5
+                                            },
+                                            "knowledge_rerank_embeddings_limit": {
+                                                "type": "integer",
+                                                "description": "Controls how many embeddings will be returned for re-ranking.",
+                                                "default": 100
+                                            },
+                                            "knowledge_score_threshold": {
+                                                "type": "number",
+                                                "description": "Controls how relevant the embeddings must be to the users input.",
+                                                "default": 10
+                                            },
+                                            "knowledge_embeddings_limit": {
+                                                "type": "integer",
+                                                "description": "Maximum number of embeddings that will be injected into the prompt.",
+                                                "default": 10
+                                            },
+                                            "collection_cache_name": {
+                                                "type": "string",
+                                                "description": "The name of the Milvus collection that contains the agents response cache embeddings. "
+                                            },
+                                            "collection_embeddings_name": {
+                                                "type": "string",
+                                                "description": "The name of the Milvus collection that contains the agents document embeddings. "
+                                            },
+                                            "minio_bucket_name": {
+                                                "type": "string",
+                                                "description": "The name of the Minio bucket associated with the agent."
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "minLength": 1,
+                                                "description": "The name of the agent."
+                                            },
+                                            "model_id": {
+                                                "type": "string",
+                                                "description": "Model ID that is available in connected watsonx.ai instance.",
+                                                "default": "meta-llama/llama-3-70b-instruct"
+                                            },
+                                            "repetition_penalty": {
+                                                "type": "number",
+                                                "description": "Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.",
+                                                "default": 1
+                                            },
+                                            "min_new_tokens": {
+                                                "type": "integer",
+                                                "description": "Controls the minimum total number of tokens the agent can generate.",
+                                                "default": 1
+                                            },
+                                            "max_new_tokens": {
+                                                "type": "integer",
+                                                "description": "Controls the maximum total number of tokens the agent can generate.",
+                                                "default": 1000
+                                            },
+                                            "temperature": {
+                                                "type": "number",
+                                                "description": "What sampling temperature to use, between 0.0 and 1.0. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. We generally recommend altering this or top_p but not both.",
+                                                "default": 1
+                                            },
+                                            "top_k": {
+                                                "type": "number",
+                                                "description": "Sampling method where the k most probable next tokens are filtered and the probability mass is redistributed among only those k next tokens. The value of k controls the number of candidates for the next token at each step during text generation.",
+                                                "default": 1
+                                            },
+                                            "top_p": {
+                                                "type": "number",
+                                                "description": "Nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered. We generally recommend altering this or temperature but not both.",
+                                                "default": 50
+                                            },
+                                            "share_enabled": {
+                                                "type": "boolean",
+                                                "description": "Controls whether the agents share link is active.",
+                                                "default": false
+                                            },
+                                            "share_branding_enabled": {
+                                                "type": "boolean",
+                                                "description": "Controls whether the agentx branding is visible on the share page",
+                                                "default": true
+                                            },
+                                            "system_prompt": {
+                                                "type": "string",
+                                                "default": "You are a helpful assistant that supports users. You respond in valid markdown format. Your answers are concise and a relevant to the question."
+                                            },
+                                            "knowledge_prompt": {
+                                                "type": "string",
+                                                "default": "Use the data provided between the <DATA> and </DATA> tags to answer the users query. Do not answer general knowledge questions."
+                                            },
+                                            "knowledge_prompt_fallback": {
+                                                "type": "string",
+                                                "default": ""
+                                            },
+                                            "knowledge_response_prefix": {
+                                                "type": "string",
+                                                "default": "Based on information in the **{document_names}** "
+                                            },
+                                            "knowledge_response_prefix_fallback": {
+                                                "type": "string",
+                                                "default": ""
+                                            },
+                                            "knowledge_response_stop_sequence_fallback": {
+                                                "type": "string",
+                                                "default": ""
+                                            },
+                                            "published_workspace": {
+                                                "type": "boolean"
+                                            },
+                                            "published_global": {
+                                                "type": "boolean"
+                                            },
+                                            "archived": {
+                                                "type": "boolean"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time"
+                                            },
+                                            "workspace_id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "id",
+                                            "published_workspace",
+                                            "published_global",
+                                            "archived",
+                                            "created_at",
+                                            "updated_at",
+                                            "workspace_id"
+                                        ],
+                                        "additionalProperties": false
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/error"
+                    }
+                }
+            }
+        },
+        "/agents/{id}": {
+            "delete": {
+                "operationId": "agents-delete",
+                "summary": "Delete agent",
+                "description": "Delete agent",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[cC][^\\s-]{8,}$"
+                        },
+                        "description": "Unique ID for the agent."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "pattern": "^[cC][^\\s-]{8,}$",
+                                            "description": "Unique ID for the agent."
+                                        },
+                                        "collection_embeddings_index_type": {
+                                            "type": "string",
+                                            "enum": [
+                                                "FLAT",
+                                                "IVF_FLAT",
+                                                "IVF_SQ8",
+                                                "GPU_IVF_FLAT",
+                                                "DISKANN"
+                                            ],
+                                            "description": "The index type for the Milvus collection that contains the agents document embeddings.",
+                                            "default": "FLAT"
+                                        },
+                                        "collection_embeddings_metric_type": {
+                                            "type": "string",
+                                            "enum": [
+                                                "L2",
+                                                "IP",
+                                                "COSINE"
+                                            ],
+                                            "description": "The metric type for the Milvus collection that contains the agents document embeddings.",
+                                            "default": "L2"
+                                        },
+                                        "decoding_method": {
+                                            "type": "string",
+                                            "enum": [
+                                                "greedy",
+                                                "sample"
+                                            ],
+                                            "description": "Greedy decoding produces output that closely matches the most common language in the model's pretraining data and in your prompt text, which is desirable in less creative or fact-based use cases. With sampling decoding, the model samples tokens, meaning the model chooses a subset of tokens, and then one token is chosen randomly from this subset to be added to the output text. Sampling adds variability and randomness to the decoding process, which can be desirable in creative use cases.",
+                                            "default": "greedy"
+                                        },
+                                        "cache_enabled": {
+                                            "type": "boolean",
+                                            "description": "Controls whether the agents first response is cached.",
+                                            "default": false
+                                        },
+                                        "cache_score_threshold": {
+                                            "type": "number",
+                                            "description": "Controls how similar the input should be to a cached repsonse.",
+                                            "default": 0.2
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "description": "Description for the purpose of the agent."
+                                        },
+                                        "knowledge_enabled": {
+                                            "type": "boolean",
+                                            "description": "Controls whether the agents should retrieve and use information from uploaded documents.",
+                                            "default": false
+                                        },
+                                        "knowledge_rerank_enabled": {
+                                            "type": "boolean",
+                                            "description": "Controls whether knowledge retrieval should leverage encoder re-ranking. This technique improves the quality of reponses in most use-cases.",
+                                            "default": true
+                                        },
+                                        "knowledge_rerank_score_threshold": {
+                                            "type": "number",
+                                            "minimum": 0,
+                                            "maximum": 1,
+                                            "description": "Controls how relevant embeddings must be when re-ranking is enabled",
+                                            "default": 0.5
+                                        },
+                                        "knowledge_rerank_embeddings_limit": {
+                                            "type": "integer",
+                                            "description": "Controls how many embeddings will be returned for re-ranking.",
+                                            "default": 100
+                                        },
+                                        "knowledge_score_threshold": {
+                                            "type": "number",
+                                            "description": "Controls how relevant the embeddings must be to the users input.",
+                                            "default": 10
+                                        },
+                                        "knowledge_embeddings_limit": {
+                                            "type": "integer",
+                                            "description": "Maximum number of embeddings that will be injected into the prompt.",
+                                            "default": 10
+                                        },
+                                        "collection_cache_name": {
+                                            "type": "string",
+                                            "description": "The name of the Milvus collection that contains the agents response cache embeddings. "
+                                        },
+                                        "collection_embeddings_name": {
+                                            "type": "string",
+                                            "description": "The name of the Milvus collection that contains the agents document embeddings. "
+                                        },
+                                        "minio_bucket_name": {
+                                            "type": "string",
+                                            "description": "The name of the Minio bucket associated with the agent."
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "description": "The name of the agent."
+                                        },
+                                        "model_id": {
+                                            "type": "string",
+                                            "description": "Model ID that is available in connected watsonx.ai instance.",
+                                            "default": "meta-llama/llama-3-70b-instruct"
+                                        },
+                                        "repetition_penalty": {
+                                            "type": "number",
+                                            "description": "Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.",
+                                            "default": 1
+                                        },
+                                        "min_new_tokens": {
+                                            "type": "integer",
+                                            "description": "Controls the minimum total number of tokens the agent can generate.",
+                                            "default": 1
+                                        },
+                                        "max_new_tokens": {
+                                            "type": "integer",
+                                            "description": "Controls the maximum total number of tokens the agent can generate.",
+                                            "default": 1000
+                                        },
+                                        "temperature": {
+                                            "type": "number",
+                                            "description": "What sampling temperature to use, between 0.0 and 1.0. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. We generally recommend altering this or top_p but not both.",
+                                            "default": 1
+                                        },
+                                        "top_k": {
+                                            "type": "number",
+                                            "description": "Sampling method where the k most probable next tokens are filtered and the probability mass is redistributed among only those k next tokens. The value of k controls the number of candidates for the next token at each step during text generation.",
+                                            "default": 1
+                                        },
+                                        "top_p": {
+                                            "type": "number",
+                                            "description": "Nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered. We generally recommend altering this or temperature but not both.",
+                                            "default": 50
+                                        },
+                                        "share_enabled": {
+                                            "type": "boolean",
+                                            "description": "Controls whether the agents share link is active.",
+                                            "default": false
+                                        },
+                                        "share_branding_enabled": {
+                                            "type": "boolean",
+                                            "description": "Controls whether the agentx branding is visible on the share page",
+                                            "default": true
+                                        },
+                                        "system_prompt": {
+                                            "type": "string",
+                                            "default": "You are a helpful assistant that supports users. You respond in valid markdown format. Your answers are concise and a relevant to the question."
+                                        },
+                                        "knowledge_prompt": {
+                                            "type": "string",
+                                            "default": "Use the data provided between the <DATA> and </DATA> tags to answer the users query. Do not answer general knowledge questions."
+                                        },
+                                        "knowledge_prompt_fallback": {
+                                            "type": "string",
+                                            "default": ""
+                                        },
+                                        "knowledge_response_prefix": {
+                                            "type": "string",
+                                            "default": "Based on information in the **{document_names}** "
+                                        },
+                                        "knowledge_response_prefix_fallback": {
+                                            "type": "string",
+                                            "default": ""
+                                        },
+                                        "knowledge_response_stop_sequence_fallback": {
+                                            "type": "string",
+                                            "default": ""
+                                        },
+                                        "published_workspace": {
+                                            "type": "boolean"
+                                        },
+                                        "published_global": {
+                                            "type": "boolean"
+                                        },
+                                        "archived": {
+                                            "type": "boolean"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "workspace_id": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "id",
+                                        "published_workspace",
+                                        "published_global",
+                                        "archived",
+                                        "created_at",
+                                        "updated_at",
+                                        "workspace_id"
+                                    ],
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/error"
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "agents-update",
+                "summary": "Update agent",
+                "description": "Update agent",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "collection_embeddings_index_type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "FLAT",
+                                            "IVF_FLAT",
+                                            "IVF_SQ8",
+                                            "GPU_IVF_FLAT",
+                                            "DISKANN"
+                                        ],
+                                        "description": "The index type for the Milvus collection that contains the agents document embeddings.",
+                                        "default": "FLAT"
+                                    },
+                                    "collection_embeddings_metric_type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "L2",
+                                            "IP",
+                                            "COSINE"
+                                        ],
+                                        "description": "The metric type for the Milvus collection that contains the agents document embeddings.",
+                                        "default": "L2"
+                                    },
+                                    "decoding_method": {
+                                        "type": "string",
+                                        "enum": [
+                                            "greedy",
+                                            "sample"
+                                        ],
+                                        "description": "Greedy decoding produces output that closely matches the most common language in the model's pretraining data and in your prompt text, which is desirable in less creative or fact-based use cases. With sampling decoding, the model samples tokens, meaning the model chooses a subset of tokens, and then one token is chosen randomly from this subset to be added to the output text. Sampling adds variability and randomness to the decoding process, which can be desirable in creative use cases.",
+                                        "default": "greedy"
+                                    },
+                                    "cache_enabled": {
+                                        "type": "boolean",
+                                        "description": "Controls whether the agents first response is cached.",
+                                        "default": false
+                                    },
+                                    "cache_score_threshold": {
+                                        "type": "number",
+                                        "description": "Controls how similar the input should be to a cached repsonse.",
+                                        "default": 0.2
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "nullable": true,
+                                        "description": "Description for the purpose of the agent."
+                                    },
+                                    "knowledge_enabled": {
+                                        "type": "boolean",
+                                        "description": "Controls whether the agents should retrieve and use information from uploaded documents.",
+                                        "default": false
+                                    },
+                                    "knowledge_rerank_enabled": {
+                                        "type": "boolean",
+                                        "description": "Controls whether knowledge retrieval should leverage encoder re-ranking. This technique improves the quality of reponses in most use-cases.",
+                                        "default": true
+                                    },
+                                    "knowledge_rerank_score_threshold": {
+                                        "type": "number",
+                                        "minimum": 0,
+                                        "maximum": 1,
+                                        "description": "Controls how relevant embeddings must be when re-ranking is enabled",
+                                        "default": 0.5
+                                    },
+                                    "knowledge_rerank_embeddings_limit": {
+                                        "type": "integer",
+                                        "description": "Controls how many embeddings will be returned for re-ranking.",
+                                        "default": 100
+                                    },
+                                    "knowledge_score_threshold": {
+                                        "type": "number",
+                                        "description": "Controls how relevant the embeddings must be to the users input.",
+                                        "default": 10
+                                    },
+                                    "knowledge_embeddings_limit": {
+                                        "type": "integer",
+                                        "description": "Maximum number of embeddings that will be injected into the prompt.",
+                                        "default": 10
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "description": "The name of the agent."
+                                    },
+                                    "model_id": {
+                                        "type": "string",
+                                        "description": "Model ID that is available in connected watsonx.ai instance.",
+                                        "default": "meta-llama/llama-3-70b-instruct"
+                                    },
+                                    "repetition_penalty": {
+                                        "type": "number",
+                                        "description": "Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.",
+                                        "default": 1
+                                    },
+                                    "min_new_tokens": {
+                                        "type": "integer",
+                                        "description": "Controls the minimum total number of tokens the agent can generate.",
+                                        "default": 1
+                                    },
+                                    "max_new_tokens": {
+                                        "type": "integer",
+                                        "description": "Controls the maximum total number of tokens the agent can generate.",
+                                        "default": 1000
+                                    },
+                                    "temperature": {
+                                        "type": "number",
+                                        "description": "What sampling temperature to use, between 0.0 and 1.0. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. We generally recommend altering this or top_p but not both.",
+                                        "default": 1
+                                    },
+                                    "top_k": {
+                                        "type": "number",
+                                        "description": "Sampling method where the k most probable next tokens are filtered and the probability mass is redistributed among only those k next tokens. The value of k controls the number of candidates for the next token at each step during text generation.",
+                                        "default": 1
+                                    },
+                                    "top_p": {
+                                        "type": "number",
+                                        "description": "Nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered. We generally recommend altering this or temperature but not both.",
+                                        "default": 50
+                                    },
+                                    "share_enabled": {
+                                        "type": "boolean",
+                                        "description": "Controls whether the agents share link is active.",
+                                        "default": false
+                                    },
+                                    "share_branding_enabled": {
+                                        "type": "boolean",
+                                        "description": "Controls whether the agentx branding is visible on the share page",
+                                        "default": true
+                                    },
+                                    "system_prompt": {
+                                        "type": "string",
+                                        "default": "You are a helpful assistant that supports users. You respond in valid markdown format. Your answers are concise and a relevant to the question."
+                                    },
+                                    "knowledge_prompt": {
+                                        "type": "string",
+                                        "default": "Use the data provided between the <DATA> and </DATA> tags to answer the users query. Do not answer general knowledge questions."
+                                    },
+                                    "knowledge_prompt_fallback": {
+                                        "type": "string",
+                                        "default": ""
+                                    },
+                                    "knowledge_response_prefix": {
+                                        "type": "string",
+                                        "default": "Based on information in the **{document_names}** "
+                                    },
+                                    "knowledge_response_prefix_fallback": {
+                                        "type": "string",
+                                        "default": ""
+                                    },
+                                    "knowledge_response_stop_sequence_fallback": {
+                                        "type": "string",
+                                        "default": ""
+                                    },
+                                    "published_workspace": {
+                                        "type": "boolean"
+                                    },
+                                    "published_global": {
+                                        "type": "boolean"
+                                    },
+                                    "archived": {
+                                        "type": "boolean"
+                                    },
+                                    "created_at": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "updated_at": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "workspace_id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[cC][^\\s-]{8,}$"
+                        },
+                        "description": "Unique ID for the agent."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "pattern": "^[cC][^\\s-]{8,}$",
+                                            "description": "Unique ID for the agent."
+                                        },
+                                        "collection_embeddings_index_type": {
+                                            "type": "string",
+                                            "enum": [
+                                                "FLAT",
+                                                "IVF_FLAT",
+                                                "IVF_SQ8",
+                                                "GPU_IVF_FLAT",
+                                                "DISKANN"
+                                            ],
+                                            "description": "The index type for the Milvus collection that contains the agents document embeddings.",
+                                            "default": "FLAT"
+                                        },
+                                        "collection_embeddings_metric_type": {
+                                            "type": "string",
+                                            "enum": [
+                                                "L2",
+                                                "IP",
+                                                "COSINE"
+                                            ],
+                                            "description": "The metric type for the Milvus collection that contains the agents document embeddings.",
+                                            "default": "L2"
+                                        },
+                                        "decoding_method": {
+                                            "type": "string",
+                                            "enum": [
+                                                "greedy",
+                                                "sample"
+                                            ],
+                                            "description": "Greedy decoding produces output that closely matches the most common language in the model's pretraining data and in your prompt text, which is desirable in less creative or fact-based use cases. With sampling decoding, the model samples tokens, meaning the model chooses a subset of tokens, and then one token is chosen randomly from this subset to be added to the output text. Sampling adds variability and randomness to the decoding process, which can be desirable in creative use cases.",
+                                            "default": "greedy"
+                                        },
+                                        "cache_enabled": {
+                                            "type": "boolean",
+                                            "description": "Controls whether the agents first response is cached.",
+                                            "default": false
+                                        },
+                                        "cache_score_threshold": {
+                                            "type": "number",
+                                            "description": "Controls how similar the input should be to a cached repsonse.",
+                                            "default": 0.2
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "description": "Description for the purpose of the agent."
+                                        },
+                                        "knowledge_enabled": {
+                                            "type": "boolean",
+                                            "description": "Controls whether the agents should retrieve and use information from uploaded documents.",
+                                            "default": false
+                                        },
+                                        "knowledge_rerank_enabled": {
+                                            "type": "boolean",
+                                            "description": "Controls whether knowledge retrieval should leverage encoder re-ranking. This technique improves the quality of reponses in most use-cases.",
+                                            "default": true
+                                        },
+                                        "knowledge_rerank_score_threshold": {
+                                            "type": "number",
+                                            "minimum": 0,
+                                            "maximum": 1,
+                                            "description": "Controls how relevant embeddings must be when re-ranking is enabled",
+                                            "default": 0.5
+                                        },
+                                        "knowledge_rerank_embeddings_limit": {
+                                            "type": "integer",
+                                            "description": "Controls how many embeddings will be returned for re-ranking.",
+                                            "default": 100
+                                        },
+                                        "knowledge_score_threshold": {
+                                            "type": "number",
+                                            "description": "Controls how relevant the embeddings must be to the users input.",
+                                            "default": 10
+                                        },
+                                        "knowledge_embeddings_limit": {
+                                            "type": "integer",
+                                            "description": "Maximum number of embeddings that will be injected into the prompt.",
+                                            "default": 10
+                                        },
+                                        "collection_cache_name": {
+                                            "type": "string",
+                                            "description": "The name of the Milvus collection that contains the agents response cache embeddings. "
+                                        },
+                                        "collection_embeddings_name": {
+                                            "type": "string",
+                                            "description": "The name of the Milvus collection that contains the agents document embeddings. "
+                                        },
+                                        "minio_bucket_name": {
+                                            "type": "string",
+                                            "description": "The name of the Minio bucket associated with the agent."
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "description": "The name of the agent."
+                                        },
+                                        "model_id": {
+                                            "type": "string",
+                                            "description": "Model ID that is available in connected watsonx.ai instance.",
+                                            "default": "meta-llama/llama-3-70b-instruct"
+                                        },
+                                        "repetition_penalty": {
+                                            "type": "number",
+                                            "description": "Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.",
+                                            "default": 1
+                                        },
+                                        "min_new_tokens": {
+                                            "type": "integer",
+                                            "description": "Controls the minimum total number of tokens the agent can generate.",
+                                            "default": 1
+                                        },
+                                        "max_new_tokens": {
+                                            "type": "integer",
+                                            "description": "Controls the maximum total number of tokens the agent can generate.",
+                                            "default": 1000
+                                        },
+                                        "temperature": {
+                                            "type": "number",
+                                            "description": "What sampling temperature to use, between 0.0 and 1.0. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. We generally recommend altering this or top_p but not both.",
+                                            "default": 1
+                                        },
+                                        "top_k": {
+                                            "type": "number",
+                                            "description": "Sampling method where the k most probable next tokens are filtered and the probability mass is redistributed among only those k next tokens. The value of k controls the number of candidates for the next token at each step during text generation.",
+                                            "default": 1
+                                        },
+                                        "top_p": {
+                                            "type": "number",
+                                            "description": "Nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered. We generally recommend altering this or temperature but not both.",
+                                            "default": 50
+                                        },
+                                        "share_enabled": {
+                                            "type": "boolean",
+                                            "description": "Controls whether the agents share link is active.",
+                                            "default": false
+                                        },
+                                        "share_branding_enabled": {
+                                            "type": "boolean",
+                                            "description": "Controls whether the agentx branding is visible on the share page",
+                                            "default": true
+                                        },
+                                        "system_prompt": {
+                                            "type": "string",
+                                            "default": "You are a helpful assistant that supports users. You respond in valid markdown format. Your answers are concise and a relevant to the question."
+                                        },
+                                        "knowledge_prompt": {
+                                            "type": "string",
+                                            "default": "Use the data provided between the <DATA> and </DATA> tags to answer the users query. Do not answer general knowledge questions."
+                                        },
+                                        "knowledge_prompt_fallback": {
+                                            "type": "string",
+                                            "default": ""
+                                        },
+                                        "knowledge_response_prefix": {
+                                            "type": "string",
+                                            "default": "Based on information in the **{document_names}** "
+                                        },
+                                        "knowledge_response_prefix_fallback": {
+                                            "type": "string",
+                                            "default": ""
+                                        },
+                                        "knowledge_response_stop_sequence_fallback": {
+                                            "type": "string",
+                                            "default": ""
+                                        },
+                                        "published_workspace": {
+                                            "type": "boolean"
+                                        },
+                                        "published_global": {
+                                            "type": "boolean"
+                                        },
+                                        "archived": {
+                                            "type": "boolean"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "workspace_id": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "id",
+                                        "published_workspace",
+                                        "published_global",
+                                        "archived",
+                                        "created_at",
+                                        "updated_at",
+                                        "workspace_id"
+                                    ],
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/error"
+                    }
+                }
+            },
+            "get": {
+                "operationId": "agents-get",
+                "summary": "Retrieve agent",
+                "description": "Retrieve agent",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[cC][^\\s-]{8,}$"
+                        },
+                        "description": "Unique ID for the agent."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "pattern": "^[cC][^\\s-]{8,}$",
+                                            "description": "Unique ID for the agent."
+                                        },
+                                        "collection_embeddings_index_type": {
+                                            "type": "string",
+                                            "enum": [
+                                                "FLAT",
+                                                "IVF_FLAT",
+                                                "IVF_SQ8",
+                                                "GPU_IVF_FLAT",
+                                                "DISKANN"
+                                            ],
+                                            "description": "The index type for the Milvus collection that contains the agents document embeddings.",
+                                            "default": "FLAT"
+                                        },
+                                        "collection_embeddings_metric_type": {
+                                            "type": "string",
+                                            "enum": [
+                                                "L2",
+                                                "IP",
+                                                "COSINE"
+                                            ],
+                                            "description": "The metric type for the Milvus collection that contains the agents document embeddings.",
+                                            "default": "L2"
+                                        },
+                                        "decoding_method": {
+                                            "type": "string",
+                                            "enum": [
+                                                "greedy",
+                                                "sample"
+                                            ],
+                                            "description": "Greedy decoding produces output that closely matches the most common language in the model's pretraining data and in your prompt text, which is desirable in less creative or fact-based use cases. With sampling decoding, the model samples tokens, meaning the model chooses a subset of tokens, and then one token is chosen randomly from this subset to be added to the output text. Sampling adds variability and randomness to the decoding process, which can be desirable in creative use cases.",
+                                            "default": "greedy"
+                                        },
+                                        "cache_enabled": {
+                                            "type": "boolean",
+                                            "description": "Controls whether the agents first response is cached.",
+                                            "default": false
+                                        },
+                                        "cache_score_threshold": {
+                                            "type": "number",
+                                            "description": "Controls how similar the input should be to a cached repsonse.",
+                                            "default": 0.2
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "description": "Description for the purpose of the agent."
+                                        },
+                                        "knowledge_enabled": {
+                                            "type": "boolean",
+                                            "description": "Controls whether the agents should retrieve and use information from uploaded documents.",
+                                            "default": false
+                                        },
+                                        "knowledge_rerank_enabled": {
+                                            "type": "boolean",
+                                            "description": "Controls whether knowledge retrieval should leverage encoder re-ranking. This technique improves the quality of reponses in most use-cases.",
+                                            "default": true
+                                        },
+                                        "knowledge_rerank_score_threshold": {
+                                            "type": "number",
+                                            "minimum": 0,
+                                            "maximum": 1,
+                                            "description": "Controls how relevant embeddings must be when re-ranking is enabled",
+                                            "default": 0.5
+                                        },
+                                        "knowledge_rerank_embeddings_limit": {
+                                            "type": "integer",
+                                            "description": "Controls how many embeddings will be returned for re-ranking.",
+                                            "default": 100
+                                        },
+                                        "knowledge_score_threshold": {
+                                            "type": "number",
+                                            "description": "Controls how relevant the embeddings must be to the users input.",
+                                            "default": 10
+                                        },
+                                        "knowledge_embeddings_limit": {
+                                            "type": "integer",
+                                            "description": "Maximum number of embeddings that will be injected into the prompt.",
+                                            "default": 10
+                                        },
+                                        "collection_cache_name": {
+                                            "type": "string",
+                                            "description": "The name of the Milvus collection that contains the agents response cache embeddings. "
+                                        },
+                                        "collection_embeddings_name": {
+                                            "type": "string",
+                                            "description": "The name of the Milvus collection that contains the agents document embeddings. "
+                                        },
+                                        "minio_bucket_name": {
+                                            "type": "string",
+                                            "description": "The name of the Minio bucket associated with the agent."
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "description": "The name of the agent."
+                                        },
+                                        "model_id": {
+                                            "type": "string",
+                                            "description": "Model ID that is available in connected watsonx.ai instance.",
+                                            "default": "meta-llama/llama-3-70b-instruct"
+                                        },
+                                        "repetition_penalty": {
+                                            "type": "number",
+                                            "description": "Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.",
+                                            "default": 1
+                                        },
+                                        "min_new_tokens": {
+                                            "type": "integer",
+                                            "description": "Controls the minimum total number of tokens the agent can generate.",
+                                            "default": 1
+                                        },
+                                        "max_new_tokens": {
+                                            "type": "integer",
+                                            "description": "Controls the maximum total number of tokens the agent can generate.",
+                                            "default": 1000
+                                        },
+                                        "temperature": {
+                                            "type": "number",
+                                            "description": "What sampling temperature to use, between 0.0 and 1.0. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. We generally recommend altering this or top_p but not both.",
+                                            "default": 1
+                                        },
+                                        "top_k": {
+                                            "type": "number",
+                                            "description": "Sampling method where the k most probable next tokens are filtered and the probability mass is redistributed among only those k next tokens. The value of k controls the number of candidates for the next token at each step during text generation.",
+                                            "default": 1
+                                        },
+                                        "top_p": {
+                                            "type": "number",
+                                            "description": "Nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered. We generally recommend altering this or temperature but not both.",
+                                            "default": 50
+                                        },
+                                        "share_enabled": {
+                                            "type": "boolean",
+                                            "description": "Controls whether the agents share link is active.",
+                                            "default": false
+                                        },
+                                        "share_branding_enabled": {
+                                            "type": "boolean",
+                                            "description": "Controls whether the agentx branding is visible on the share page",
+                                            "default": true
+                                        },
+                                        "system_prompt": {
+                                            "type": "string",
+                                            "default": "You are a helpful assistant that supports users. You respond in valid markdown format. Your answers are concise and a relevant to the question."
+                                        },
+                                        "knowledge_prompt": {
+                                            "type": "string",
+                                            "default": "Use the data provided between the <DATA> and </DATA> tags to answer the users query. Do not answer general knowledge questions."
+                                        },
+                                        "knowledge_prompt_fallback": {
+                                            "type": "string",
+                                            "default": ""
+                                        },
+                                        "knowledge_response_prefix": {
+                                            "type": "string",
+                                            "default": "Based on information in the **{document_names}** "
+                                        },
+                                        "knowledge_response_prefix_fallback": {
+                                            "type": "string",
+                                            "default": ""
+                                        },
+                                        "knowledge_response_stop_sequence_fallback": {
+                                            "type": "string",
+                                            "default": ""
+                                        },
+                                        "published_workspace": {
+                                            "type": "boolean"
+                                        },
+                                        "published_global": {
+                                            "type": "boolean"
+                                        },
+                                        "archived": {
+                                            "type": "boolean"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "workspace_id": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "id",
+                                        "published_workspace",
+                                        "published_global",
+                                        "archived",
+                                        "created_at",
+                                        "updated_at",
+                                        "workspace_id"
+                                    ],
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/error"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "ApiKeyAuth": {
+                "type": "apiKey",
+                "name": "x-api-key",
+                "in": "header"
+            }
+        },
+        "responses": {
+            "error": {
+                "description": "Error response",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                },
+                                "code": {
+                                    "type": "string"
+                                },
+                                "issues": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "message": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "message"
+                                        ],
+                                        "additionalProperties": false
+                                    }
+                                }
+                            },
+                            "required": [
+                                "message",
+                                "code"
+                            ],
+                            "additionalProperties": false
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
