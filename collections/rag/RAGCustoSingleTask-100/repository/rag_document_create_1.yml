@@ -1,0 +1,18 @@
+---
+- name: Manage documents in a Retrieval-Augmented Generation (RAG) framework
+  hosts: localhost
+  gather_facts: False
+  tasks:
+    - name: Specific API agentx - Embed a document in a Retrieval-Augmented Generation (RAG) framework
+      ibm.ce_emea_rag.rag_document:
+        rag_agent_id: "{{ rag_agent_id }}"
+        rag_file_name: Red_Hat_Partner Training_Portal_User_Guide.pdf
+        rag_file_url: http://localhost/pdf/Red_Hat_Partner_Training_Portal_User_Guide.pdf
+        rag_chunk_overlap: 300
+        rag_chunk_size: 800
+        rag_keep_files: false
+        method: CREATE
+      register: create_result
+
+
+

@@ -1,0 +1,11 @@
+---
+- name: Manage Artificial Intelligence (AI) assistant agents into a Retrieval-Augmented Generation (RAG) structure
+  hosts: localhost
+  gather_facts: False  
+  tasks:
+    - name: Specific API agentx - Delete an AI assistant agent by its ID into a Retrieval-Augmented Generation (RAG) structure
+      ibm.ce_emea_rag.rag_agent:
+        rag_workspace_id: "{{ rag_workspace_id }}"
+        rag_agent_id: "{{ rag_agent_id }}"
+        method: DELETE
+      register: delete_result

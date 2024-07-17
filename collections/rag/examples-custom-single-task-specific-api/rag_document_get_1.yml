@@ -1,0 +1,11 @@
+---
+- name: Manage documents in a Retrieval-Augmented Generation (RAG) framework
+  hosts: localhost
+  gather_facts: False
+  tasks:
+    - name: Specific API agentx - Get or Retrieve a document by its ID in a Retrieval-Augmented Generation (RAG) framework
+      ibm.ce_emea_rag.rag_document:
+        rag_agent_id: "{{ rag_agent_id }}"
+        rag_document_id: "{{ rag_document_id  }}"
+        method: GET_BY_ID
+      register: get_by_id_result

@@ -1,0 +1,50 @@
+---
+- name: OCP Cluster Operation
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  #module_defaults:
+  #  group/community.okd.okd:
+  #     host: https://api.tnc-env23.p157.cesc.nca.ihost.com:6443
+  #     verify_ssl: false
+
+  vars:
+    openshift_admin: kubeadmin
+    openshift_namespace: cp4aiops
+    openshift_api_url: api.tnc-env23.p157.cesc.nca.ihost.com:6443
+
+  tasks:
+  - block:
+    # It's good practice to store login credentials in a secure vault and not
+    # directly in playbooks.
+    - name: Include variables from 'openshift_passwords.yml'
+      include_vars: openshift_passwords.yml
+
+    - name: Log in Openshift
+      ibm.ce_emea_rag.rag_login:
+        rag_output_key: '74'
+        rag_username: "{{ openshift_admin }}"
+        rag_password: "{{ _rag_password_ }}"
+      register: rag_login_result
+
+
+    - name: Generate a list of all pods from an openshift namespace using API Key authentication
+      ibm.ce_emea_rag.rag_cluster_list:
+        rag_output_key: '74'
+        rag_namespace: "{{ openshift_namespace }}"
+        rag_api_url: "{{ openshift_api_url }}"
+      register: rag_cluster_list_result
+
+
+    #- name: extract each pod name and generate an array of json object whose key is name and value is the pod name
+
+    #- name: print the array
+
+    #- name: create a json file from the array and the json file name is the openshift namespace 
+
+
+
+
+
+    
+

@@ -1,0 +1,72 @@
+---
+- name: Specific API agentx - Manage documents in a Retrieval-Augmented Generation (RAG) framework
+  hosts: localhost
+  gather_facts: False
+  module_defaults:
+    ibm.ce_emea_rag.rag_document:
+      rag_api_base_url: "{{ rag_api_base_url }}"
+      rag_username_api: "{{ rag_username_api }}"
+      rag_password_api: "{{ rag_password_api }}"
+      rag_api_key: "{{ rag_api_key }}"
+
+  tasks:
+
+
+    - name: Specific API agentx. Get a list of documents in a Retrieval-Augmented Generation (RAG) framework
+      ibm.ce_emea_rag.rag_document:
+        rag_agent_id: "{{ rag_agent_id }}"
+        method: LIST
+      register: get_result
+
+    - name: Display the list of RAG documents
+      debug:
+        var: get_result.json_payload
+
+    - name: Specific API agentx. Get or Retrieve a document by its ID in a Retrieval-Augmented Generation (RAG) framework
+      ibm.ce_emea_rag.rag_document:
+        rag_agent_id: "{{ rag_agent_id }}"
+        rag_document_id: "{{ get_result.json_payload[0].id  }}"
+        method: GET_BY_ID
+      register: get_by_id_result
+
+    - name: Display the RAG document info
+      debug:
+        var: get_by_id_result.json_payload
+
+
+    - name: Specific API agentx. Embed a document in a Retrieval-Augmented Generation (RAG) framework
+      ibm.ce_emea_rag.rag_document:
+        rag_agent_id: "{{ rag_agent_id }}"
+        rag_file_name: Red_Hat_Partner Training_Portal_User_Guide.pdf
+        rag_file_url: http://localhost/pdf/Red_Hat_Partner_Training_Portal_User_Guide.pdf
+        rag_chunk_overlap: 300
+        rag_chunk_size: 800
+        rag_keep_files: false
+        method: CREATE
+      register: create_result
+
+    - name: Specific API agentx. Display the output of the document ingestion
+      debug:
+        var: create_result.json_payload
+
+    - pause:
+        prompt: "Do you want to continue(yes/no)?"
+      register: my_pause
+      delegate_to: localhost
+
+
+    - name: Specific API agentx. Remove or Delete a document by its ID in a Retrieval-Augmented Generation (RAG) framework
+      ibm.ce_emea_rag.rag_document:
+        rag_agent_id: "{{ rag_agent_id }}"
+        rag_document_id: "{{ create_result.json_payload.id }}"
+        method: DELETE
+      register: delete_result
+
+    - name: Display the delete document result
+      debug:
+        var: delete_result.json_payload
+
+
+
+
+

@@ -1,0 +1,11 @@
+---
+- name: Sample Ansible playbooks to manage Artificial Intelligence (AI) assistant agents in a Retrieval-Augmented Generation (RAG) setup
+  hosts: localhost
+  gather_facts: False 
+  tasks:
+    - name: Delete an AI assistant agent by its ID in a Retrieval-Augmented Generation (RAG) setup
+      ibm.ce_emea_rag.rag_agent:
+        rag_workspace_id: "{{ rag_workspace_id }}"
+        rag_agent_id: "{{ rag_agent_id }}"
+        method: DELETE
+      register: delete_result

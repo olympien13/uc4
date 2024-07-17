@@ -1,0 +1,23 @@
+
+********************************************************************************
+****                Ansible Content Parser Execution Report                 ****
+********************************************************************************
+
+Date/Time             : 2024-07-17T10:44:48.341709+00:00
+Content Parser Version: 1.0.3
+Source Repository     : ./examples-custom-specific-api
+Output Directory      : /Users/livigni/Documents/TNC/WCA4A/clients/CAGIP-Custom/uc4/collections/rag/RAGCusto-100
+
+
+[ List of Ansible modules found in tasks ]
+
+--------------------------------------
+Module Name                      Count
+--------------------------------------
+debug                               48
+ibm.ce_emea_rag.rag_agent           25
+ibm.ce_emea_rag.rag_document        23
+pause                                5
+--------------------------------------
+TOTAL                              101
+--------------------------------------
