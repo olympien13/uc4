@@ -1,0 +1,22 @@
+---
+
+- name: Add a new pet to the store
+  ansible.builtin.uri:
+    url: "{{ pet_endpoint }}"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+    body_format: json
+    body:
+      id: "{{ pet_id }}"
+      name: "{{ pet_name }}"
+      category:
+        id: "{{ category_id }}"
+        name: "{{ category_name }}"
+      status: "{{ status }}"
+    return_content: yes
+  register: result
+
+- name: Debug result
+  debug:
+    var: result

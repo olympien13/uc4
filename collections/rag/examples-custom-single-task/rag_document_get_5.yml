@@ -1,6 +1,6 @@
 ---
 - name: Sample Ansible playbooks to manage documents in a Retrieval-Augmented Generation (RAG) setup
-  gather_facts: False
+  gather_facts: false
   hosts: localhost
   module_defaults:
   tasks:

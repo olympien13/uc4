@@ -1,0 +1,43 @@
+---
+- name: Deploy Azure resources and Create Azure VM
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Create a resource group
+      ibm.ce_emea_rag.rag_resource_group:
+        rag_workspace_id: "{{ rag_workspace_id }}"
+        name: "{{ resource_group_name }}"
+        method: CREATE
+      register: create_result
+
+
+
+    - name: Create a virtual network
+      ibm.ce_emea_rag.rag_virtual_network:
+        rag_resource_group_id: "{{ create_result.json_payload[0].id }}"
+        name: "{{ virtual_network_name }}"
+        method: CREATE
+      register: create_vnet_result
+
+
+    - name: Add subnet
+      ibm.ce_emea_rag.rag_subnet:
+        rag_virtual_network_id: "{{ create_vnet_result.json_payload[0].id }}"
+        rag_workspace_id: "{{ rag_workspace_id }}"
+        rag_resource_group_id: "{{ create_result.json_payload[0].id }}"
+        rag_name: "{{ subnet_name }}"
+        method: CREATE
+      register: create_subnet_result
+
+
+    - name: Create a VM
+    
+    
+
+
+
+
+
+

@@ -1,7 +1,7 @@
 ---
 - name: Sample RAG Ansible playbooks to manage RAG Documents
   hosts: localhost
-  gather_facts: False
+  gather_facts: false
   vars_files:
     - my_module_defaults.yml
     

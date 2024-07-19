@@ -1,7 +1,7 @@
 ---
 - name: Manage Artificial Intelligence (AI) assistant agents into a Retrieval-Augmented Generation (RAG) structure
   hosts: localhost
-  gather_facts: False  
+  gather_facts: false  
   tasks:
     - name: Specific API agentx - Get an AI assistant agent by its ID into a Retrieval-Augmented Generation (RAG) structure
       ibm.ce_emea_rag.rag_agent:

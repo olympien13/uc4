@@ -20,7 +20,14 @@
     - name: Include variables from 'openshift_passwords.yml'
       include_vars: openshift_passwords.yml
 
-    #- name: Log in Openshift
+    - name: Log in Openshift
+      ibm.ce_emea_rag.rag_user:
+        rag_workspace_id: "{{ rag_workspace_id }}"
+        rag_username: "{{ rag_username }}"
+        rag_password: "{{ _rag_password_ }}"
+        method: LOGIN
+      register: login_result
+
 
     #- name: Generate a list of all pods from an openshift namespace using API Key authentication
 

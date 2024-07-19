@@ -1,7 +1,7 @@
 ---
 - name: Manage documents in a Retrieval-Augmented Generation (RAG) framework
   hosts: localhost
-  gather_facts: False
+  gather_facts: false
   tasks:
     - name: Specific API agentx - Embed a document in a Retrieval-Augmented Generation (RAG) framework
       ibm.ce_emea_rag.rag_document:

@@ -1,0 +1,15 @@
+---
+
+- name: Find pets by status
+  ansible.builtin.uri:
+    url: "{{ pet_find_by_status_endpoint }}?status={{ status }}"
+    method: GET
+    headers:
+      Content-Type: "application/json"
+    return_content: yes
+    status_code: 200
+  register: result
+
+- name: Debug result
+  debug:
+    var: result

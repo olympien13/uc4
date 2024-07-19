@@ -1,0 +1,23 @@
+---
+- name: Deploy simple website using Ansible Lightspeed with watsonx Code Assistant
+  hosts: all
+  gather_facts: false
+  remote_user: root
+  become: true
+
+  tasks:
+    - name: Ensure httpd package is installed
+
+    #- name: Configure httpd on port 8080
+
+    # Start and enable firewalld & Allow the traffic through firewalld & reload firewalld & Ensure /var/www/html directory exists
+
+    #- name: Extract website-rh.tar.gz without remote_src and set permissions and ownership to root
+    
+    #- name: Start and enable httpd
+
+
+
+
+
+

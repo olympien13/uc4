@@ -1,6 +1,6 @@
 ---
 - name: Sample Ansible playbooks to manage documents into a Retrieval-Augmented Generation (RAG) structure
-  gather_facts: False
+  gather_facts: false
   hosts: localhost
   tasks:
     - name: Remove or Delete a document by its ID into a Retrieval-Augmented Generation (RAG) structure

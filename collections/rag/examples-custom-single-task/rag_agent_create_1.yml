@@ -1,7 +1,7 @@
 ---
 - name: Sample Ansible playbooks to manage Artificial Intelligence (AI) assistant agents in a Retrieval-Augmented Generation (RAG) framework
   hosts: localhost
-  gather_facts: False 
+  gather_facts: false 
   tasks:
     - name: Create an AI assistant agent in a Retrieval-Augmented Generation (RAG) framework
       ibm.ce_emea_rag.rag_agent:

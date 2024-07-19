@@ -1,0 +1,8 @@
+---
+- name: Get pet by ID
+  hosts: localhost
+  roles:
+    - role: ibm.ce_emea_petstore.get_pet_by_id
+      vars:
+        pet_id: 123
+        pet_endpoint: "https://petstore.swagger.io/v2/pet"

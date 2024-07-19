@@ -1,7 +1,7 @@
 ---
 - name: Manage documents within a Retrieval-Augmented Generation (RAG) system
   hosts: localhost
-  gather_facts: False
+  gather_facts: false
   tasks:
     - name: Specific API agentx - Upload a document within a Retrieval-Augmented Generation (RAG) system
       ibm.ce_emea_rag.rag_document:
