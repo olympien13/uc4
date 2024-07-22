@@ -2,8 +2,12 @@
 
 - name: Find pets by status
   hosts: localhost
-  roles:
-    - role: ibm.ce_emea_petstore.find_pets_by_status
+  gather_facts: true
+
+  tasks:
+    - name: Include find pets by status role
+      ansible.builtin.include_role:
+        name: ibm.ce_emea_petstore.find_pets_by_status
       vars:
         status: "available"
         pet_find_by_status_endpoint: "https://petstore.swagger.io/v2/pet/findByStatus"

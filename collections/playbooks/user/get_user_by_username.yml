@@ -1,8 +1,12 @@
 ---
 - name: Get user by username
   hosts: localhost
-  roles:
-    - role: ibm.ce_emea_petstore.get_user_by_username
+  gather_facts: true
+
+  tasks:
+    - name: Include get user by username role
+      ansible.builtin.include_role:
+        name: ibm.ce_emea_petstore.get_user_by_username
       vars:
         username: "johndoe"
         user_endpoint: https://petstore.swagger.io/v2/user

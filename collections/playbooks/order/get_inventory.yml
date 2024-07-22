@@ -1,7 +1,11 @@
 ---
 - name: Get store inventory
   hosts: localhost
-  roles:
-    - role: ibm.ce_emea_petstore.get_inventory
+  gather_facts: true
+  
+  tasks:
+    - name: Include get store inventory role
+      ansible.builtin.include_role:
+        name: ibm.ce_emea_petstore.get_inventory
       vars:
         pet_endpoint: "https://petstore.swagger.io/v2/store"

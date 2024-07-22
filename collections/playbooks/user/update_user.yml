@@ -1,8 +1,12 @@
 ---
 - name: Update a user
   hosts: localhost
-  roles:
-    - role: ibm.ce_emea_petstore.update_user
+  gather_facts: true
+
+  tasks:
+    - name: Include update user role
+      ansible.builtin.include_role:
+        name: ibm.ce_emea_petstore.update_user
       vars:
         user_endpoint: https://petstore.swagger.io/v2/user
         user_id: 1

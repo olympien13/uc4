@@ -1,8 +1,12 @@
 ---
 - name: Place an order for a pet
   hosts: localhost
-  roles:
-    - role: ibm.ce_emea_petstore.place_order
+  gather_facts: true
+
+  tasks:
+    - name: Include place order for a pet role
+      ansible.builtin.include_role:
+        name: ibm.ce_emea_petstore.place_order  
       vars:
         pet_endpoint: "https://petstore.swagger.io/v2/store"
         order_id: 1

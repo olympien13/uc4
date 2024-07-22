@@ -1,12 +1,12 @@
 ---
-- name: Get pet by ID
+- name: Delete pet by ID
   hosts: localhost
   gather_facts: true
 
   tasks:
-    - name: Include Get pet by ID role
+    - name: Include delete pet by ID role
       ansible.builtin.include_role:
-        name: ibm.ce_emea_petstore.get_pet_by_id
+        name: ibm.ce_emea_petstore.delete_pet
       vars:
-        pet_id: 123
         pet_endpoint: "https://petstore.swagger.io/v2/pet"
+        pet_id: 123

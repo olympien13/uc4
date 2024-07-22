@@ -1,8 +1,8 @@
 ---
 
 - name: Delete pet by ID
-  uri:
-    ansible.builtin.uri: "{{ pet_endpoint }}/{{ pet_id }}"
+  ansible.builtin.uri:
+    url: "{{ pet_endpoint }}/{{ pet_id }}"
     method: DELETE
     headers:
       Content-Type: "application/json"

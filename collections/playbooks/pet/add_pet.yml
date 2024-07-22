@@ -2,8 +2,12 @@
 
 - name: Add a new pet to the store
   hosts: localhost
-  roles:
-    - role: ibm.ce_emea_petstore.add_pet
+  gather_facts: true
+
+  tasks:
+    - name: Include add pet role
+      ansible.builtin.include_role:
+        name: ibm.ce_emea_petstore.add_pet
       vars:
         pet_id: 123
         pet_name: "Buddy"

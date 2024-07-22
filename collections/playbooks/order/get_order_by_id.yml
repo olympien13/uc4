@@ -1,8 +1,12 @@
 ---
 - name: Get order by ID
   hosts: localhost
-  roles:
-    - role: ibm.ce_emea_petstore.get_order_by_id
+  gather_facts: true
+
+  tasks:
+    - name: Include get order by ID role
+      ansible.builtin.include_role:
+        name: ibm.ce_emea_petstore.get_order_by_id  
       vars:
         pet_endpoint: "https://petstore.swagger.io/v2/store"
-        order_id: 2
+        order_id: 1
