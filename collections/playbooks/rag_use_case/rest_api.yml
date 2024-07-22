@@ -1,0 +1,130 @@
+---
+- name: Using a Petstore API target end point https://petstore.swagger.io/
+  become: false
+  hosts: localhost
+  gather_facts: false
+  vars:
+    pet_name: 9223372036854661209
+    pet_json_payload: |
+      {
+        "id": 9223372036854661209,
+        "category": {
+          "id": 0,
+          "name": "string"
+        },
+        "name": "doggieFab1",
+        "photoUrls": [
+          "string"
+        ],
+        "tags": [
+          {
+            "id": 0,
+            "name": "string"
+          }
+        ],
+        "status": "available"
+      }
+    user_id: 0
+    username: string
+    update_user_payload: |
+      {
+        "id": {{ user_id }},
+        "username": "string",
+        "firstName": "string7",
+        "lastName": "string7",
+        "email": "string",
+        "password": "string",
+        "phone": "string",
+        "userStatus": 0
+      }
+
+  tasks:
+    - name: Post JSON data to the Petstore API
+      ansible.builtin.uri:
+        url: https://petstore.swagger.io/v2/pet
+        method: POST
+        body: "{{ pet_json_payload }}"
+        body_format: json
+        status_code: 200
+        return_content: true
+        validate_certs: false
+      register: result
+      failed_when: result.status != 200
+
+    - name: debug result variable
+      ansible.builtin.debug:
+        var: result
+
+    - name: Get the JSON data from the the Petstore API using its pet_name
+      ansible.builtin.uri:
+        url: https://petstore.swagger.io/v2/pet/{{ pet_name }}
+        method: GET
+        status_code: 200
+        return_content: true
+        validate_certs: false
+      register: result
+      failed_when: result.status != 200
+
+    - name: debug result variable
+      ansible.builtin.debug:
+        var: result
+
+    # - name: Update an user using a PUT method and '/user' url
+    #   ansible.builtin.uri:
+    #     url: https://petstore.swagger.io/v2/user
+    #     method: PUT
+    #     body:
+    #       id: 1
+    #       name: John
+    #     body_format: json
+    #     status_code: 200
+    #     return_content: true
+    #     validate_certs: false
+    #   register: result
+    #   failed_when: result.status != 200
+
+    # - name: Update an user using a PUT method and '/user' url
+    #   ansible.builtin.uri:
+    #     url: https://petstore.swagger.io/v2/user
+    #     method: PUT
+    #     body: "{{ _body_ }}"
+    #     body_format: json
+    #     status_code: 200
+    #     return_content: true
+    #     validate_certs: false
+    #   register: result
+    #   failed_when: result.status != 200
+
+    - name: Update an user with a PUT method with uri '/user' and using update_user_payload var as the body
+      ansible.builtin.uri:
+        url: https://petstore.swagger.io/v2/user/{{ username }}
+        method: PUT
+        body: "{{ update_user_payload }}"
+        body_format: json
+        status_code: 200
+        return_content: true
+        validate_certs: false
+      register: result
+      failed_when: result.status != 200
+
+    - name: debug result variable
+      ansible.builtin.debug:
+        var: result
+
+    - name: Get the user from the the Petstore API using its username
+      ansible.builtin.uri:
+        url: https://petstore.swagger.io/v2/user/{{ username }}
+        method: GET
+        status_code: 200
+        return_content: true
+        validate_certs: false
+      register: result
+      failed_when: result.status != 200
+
+    - name: debug result variable
+      ansible.builtin.debug:
+        var: result
+
+
+
+    
