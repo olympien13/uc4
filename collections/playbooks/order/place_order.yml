@@ -1,0 +1,13 @@
+---
+- name: Place an order for a pet
+  hosts: localhost
+  roles:
+    - role: ibm.ce_emea_petstore.place_order
+      vars:
+        pet_endpoint: "https://petstore.swagger.io/v2/store"
+        order_id: 1
+        pet_id: 1
+        quantity: 1
+        ship_date: "2024-07-19T12:34:56.789Z"
+        status: "placed"
+        complete: true

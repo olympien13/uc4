@@ -1,0 +1,7 @@
+---
+- name: Get store inventory
+  hosts: localhost
+  roles:
+    - role: ibm.ce_emea_petstore.get_inventory
+      vars:
+        pet_endpoint: "https://petstore.swagger.io/v2/store"

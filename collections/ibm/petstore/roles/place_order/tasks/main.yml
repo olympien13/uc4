@@ -1,0 +1,21 @@
+---
+- name: Place an order for a pet
+  ansible.builtin.uri:
+    url: "{{ pet_endpoint }}/order"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+    body_format: json
+    body:
+      id: "{{ order_id }}"
+      petId: "{{ pet_id }}"
+      quantity: "{{ quantity }}"
+      shipDate: "{{ ship_date }}"
+      status: "{{ status }}"
+      complete: "{{ complete }}"
+    return_content: yes
+  register: result
+
+- name: Debug result
+  debug:
+    var: result

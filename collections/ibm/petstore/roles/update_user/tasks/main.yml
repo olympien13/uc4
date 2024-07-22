@@ -1,0 +1,23 @@
+---
+- name: Update user
+  ansible.builtin.uri:
+    url: "{{ user_endpoint }}/{{ username }}"
+    method: PUT
+    headers:
+      Content-Type: "application/json"
+    body_format: json
+    body:
+      id: "{{ user_id }}"
+      username: "{{ username }}"
+      firstName: "{{ first_name }}"
+      lastName: "{{ last_name }}"
+      email: "{{ email }}"
+      password: "{{ password }}"
+      phone: "{{ phone }}"
+      userStatus: "{{ user_status }}"
+    return_content: yes
+  register: result
+
+- name: Debug result
+  debug:
+    var: result

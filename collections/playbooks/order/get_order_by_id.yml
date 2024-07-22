@@ -1,0 +1,8 @@
+---
+- name: Get order by ID
+  hosts: localhost
+  roles:
+    - role: ibm.ce_emea_petstore.get_order_by_id
+      vars:
+        pet_endpoint: "https://petstore.swagger.io/v2/store"
+        order_id: 2

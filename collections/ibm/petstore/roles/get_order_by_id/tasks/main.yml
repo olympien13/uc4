@@ -1,0 +1,13 @@
+---
+- name: Find purchase order by ID
+  ansible.builtin.uri:
+    url: "{{ pet_endpoint }}/order/{{ order_id }}"
+    method: GET
+    headers:
+      Content-Type: "application/json"
+    return_content: yes
+  register: result
+
+- name: Debug result
+  debug:
+    var: result

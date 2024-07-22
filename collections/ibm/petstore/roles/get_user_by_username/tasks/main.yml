@@ -1,0 +1,13 @@
+---
+- name: Get user by username
+  ansible.builtin.uri:
+    url: "{{ user_endpoint }}/{{ username }}"
+    method: GET
+    headers:
+      Content-Type: "application/json"
+    return_content: yes
+  register: result
+
+- name: Debug result
+  debug:
+    var: result

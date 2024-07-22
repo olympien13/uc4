@@ -1,0 +1,14 @@
+---
+
+- name: Delete pet by ID
+  uri:
+    ansible.builtin.uri: "{{ pet_endpoint }}/{{ pet_id }}"
+    method: DELETE
+    headers:
+      Content-Type: "application/json"
+    return_content: yes
+  register: result
+
+- name: Debug result
+  debug:
+    var: result
