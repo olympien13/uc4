@@ -10,12 +10,29 @@
   #     rag_api_key: sk_wrk_2MRLdOtcHpgadUefAIuW2o1l2qXZ3Qkscynkd4eXxOs9OZun
 
   tasks:
-    #- name: Get a list of documents in a Retrieval-Augmented Generation (RAG) architecture
+    - name: Get a list of documents in a Retrieval-Augmented Generation (RAG) architecture
+      ibm.ce_emea_rag.rag_document:
+        rag_agent_id: "{{ rag_agent_id }}"
+        method: LIST
+      register: get_result
 
-    #- name: Get or Retrieve a document by its ID in a Retrieval-Augmented Generation (RAG) architecture
+    - name: Get or Retrieve a document by its ID in a Retrieval-Augmented Generation (RAG) architecture
+      ibm.ce_emea_rag.rag_document:
+        rag_agent_id: "{{ rag_agent_id }}"
+        rag_document_id: "{{ get_result.json_payload[0].id }}"
+        method: GET_BY_ID
+      register: get_by_id_result
 
-    #- name: Embed a document in a Retrieval-Augmented Generation (RAG) architecture
+    - name: Embed a document in a Retrieval-Augmented Generation (RAG) architecture
+      ibm.ce_emea_rag.rag_document:
+        rag_agent_id: "{{ rag_agent_id }}"
+        rag_document_id: "{{ get_by_id_result.json_payload[0].id }}"
+        rag_chunk_overlap: "{{ get_by_id_result.json_payload[0].chunk_overlap }}"
+        rag_chunk_size: "{{ get_by_result.json_payload[0].chunk_size }}"
 
-    #- name: Remove or Delete a document by its ID in a Retrieval-Augmented Generation (RAG) architecture
+
+    - name: Remove or Delete a document by its ID in a Retrieval-Augmented Generation (RAG) architecture
+      ibm.rag_rag_document:
+
 
     

@@ -32,23 +32,30 @@
     - name: Create a resource group
       ibm.ce_emea_rag.rag_resource_group:
         rag_workspace_id: "{{ rag_workspace_id }}"
-        agent_id: "{{ rag_agent_id }}"
-        name: "{{ resource_group_name }}"
+        name: "{{ rag_resource_group_name }}"
         method: CREATE
       register: create_result
 
     - name: Create a virtual network
       ibm.ce_emea_rag.rag_virtual_network:
-        rag_workspace_id: "{{ rag_workspace_id }}"
-        agent_id: "{{ rag_agent_id }}"
-        name: "{{ virtual_network_name }}"
+        rag_resource_group_id: "{{ rag_resource_group_id }}"
+        name: Red_Hat_Partner Training_Portal
         method: CREATE
       register: create_result
 
-    #- name: Add subnet
+    - name: Add subnet
+      ibm.ce_emea_rag.rag_subnet:
+        rag_resource_group_id: "{{ rag_resource_group_id }}"
+        virtual_network_id: "{{ create_result.network_id }}"
+        ip_address_start: 10.100.100.180
+        ip_address_end: 10.100.101.24
+        subnet_name: Red_Hat_Partner_Training_Portal
+        method: CREATE
+      register: create_result
 
+    # Ansible Lightspeed does not have a suggestion for this input. Try changing your prompt, or contact your administrator with Suggestion Id bef19ab5-71ba-492e-b5ee-c5bcc2f48d2d for assistance
+    #- name: Create a VM
 
-    - name: Create a VM
     
     
 

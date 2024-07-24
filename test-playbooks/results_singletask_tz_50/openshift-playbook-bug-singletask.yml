@@ -22,25 +22,24 @@
 
     - name: Log in Openshift
       ibm.ce_emea_rag.rag_user:
-        rag_workspace_id: "{{ rag_workspace_id }}"
-        rag_agent_id: "{{ rag_agent_id }}"
-        method: CREATE
-      register: create_result
-
-
+        username: "{{ openshift_admin }}"
+        password: "{{ _password_ }}"
+        method: LOGIN
+      register: log_in_result
 
     - name: Generate a list of all pods from an openshift namespace using API Key authentication
-      ibm.ce_emea_rag.rag_pod:
-        rag_workspace_id: "{{ rag_workspace_id }}"
-        rag_agent_id: "{{ rag_agent_id }}"
+      ibm.ce_emea_rag.rag_workspace_info:
+        namespace_id: "{{ openshift_namespace }}"
+        api_key: "{{ _api_key_ }}"
         method: LIST
-      register: list_result
-
+      register: generate_result
 
 
     - name: extract each pod name and generate an array of json object whose key is name and value is the pod name
-    
+      ansible.builtin.set_fact:
+        pod_names: "{{ generate_result.content | map(attribute='name') | list }}"
 
+    
     #- name: print the array
 
     #- name: create a json file from the array and the json file name is the openshift namespace 

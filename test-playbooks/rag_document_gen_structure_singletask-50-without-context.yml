@@ -12,28 +12,34 @@
   tasks:
     - name: Get a list of documents into a Retrieval-Augmented Generation (RAG) structure
       ibm.ce_emea_rag.rag_document:
-        rag_workspace_id: "{{ rag_workspace_id }}"
+        rag_agent_id: "{{ rag_agent_id }}"
         method: LIST
       register: get_result
 
     - name: Get or Retrieve a document by its ID into a Retrieval-Augmented Generation (RAG) structure
       ibm.ce_emea_rag.rag_document:
-        rag_workspace_id: "{{ rag_workspace_id }}"
+        rag_agent_id: "{{ rag_agent_id }}"
         rag_document_id: "{{ get_result.json_payload[0].id }}"
         method: GET_BY_ID
       register: get_by_id_result
 
     - name: Embed a document into a Retrieval-Augmented Generation (RAG) structure
-      ibm.ce_emea_rag.rag_document:
-        rag_workspace_id: "{{ rag_workspace_id }}"
-        rag_document_id: "{{ get_by_id_result.json_payload[0].id }}"
-        rag_chunk_overlap: "{{ get_by_id_result.json_payload[0].chunk_overlap }}"
-        rag_chunk_size: "{{ get_by_result.json_payload[0].chunk_size }}"
-        rag_keep_files: "{{ get_by_id_result.json_payload[0].keep_files }}"
+      ibm.ce_emea_rag.rag_chunk:
+        rag_agent_id: "{{ rag_agent_id }}"
+        rag_document_id: "{{ get_by_id_result.json_payload.id }}"
+        rag_chunk_overlap: 150
+        rag_chunk_size: 400
+        rag_keep_files: false
         method: CREATE
       register: create_result
 
     - name: Remove or Delete a document by its ID into a Retrieval-Augmented Generation (RAG) structure
+      ibm.ce_emea_rag.rag_document:
+        rag_agent_id: "{{ rag_agent_id }}"
+        rag_document_id: "{{ create_result.json_payload.json_payload.id }}"
+        method: DELETE
+      register: delete_result
+
     
     
 

@@ -10,13 +10,36 @@
   #     rag_api_key: sk_wrk_2MRLdOtcHpgadUefAIuW2o1l2qXZ3Qkscynkd4eXxOs9OZun
 
   tasks:
-    #- name: Get a list of documents in a Retrieval-Augmented Generation (RAG) setup
+    - name: Get a list of documents in a Retrieval-Augmented Generation (RAG) setup
+      ibm.ce_emea_rag.rag_document:
+        rag_workspace_id: "{{ rag_workspace_id }}"
+        method: LIST
+      register: get_result
 
-    #- name: Get or Retrieve a document by its ID in a Retrieval-Augmented Generation (RAG) setup
+    - name: Get or Retrieve a document by its ID in a Retrieval-Augmented Generation (RAG) setup
+      ibm.ce_emea_rag.rag_document:
+        rag_workspace_id: "{{ rag_workspace_id }}"
+        rag_document_id: "{{ get_result.json_payload[0].id }}"
+        method: GET_BY_ID
+      register: get_by_id_result
 
-    #- name: Embed a document in a Retrieval-Augmented Generation (RAG) setup
+    - name: Embed a document in a Retrieval-Augmented Generation (RAG) setup
+      ibm.ce_emea_rag.rag_chunk:
+        rag_workspace_id: "{{ rag_workspace_id }}"
+        rag_document_id: "{{ get_by_id_result.json_payload.id }}"
+        rag_chunk_overlap: 150
+        rag_chunk_size: 400
+        rag_keep_files: false
+        method: CREATE
+      register: create_result
 
-    #- name: Remove or Delete a document by its ID in a Retrieval-Augmented Generation (RAG) setup
+    - name: Remove or Delete a document by its ID in a Retrieval-Augmented Generation (RAG) setup
+      ibm.ce_emea_rag.rag_document:
+        rag_workspace_id: "{{ rag_workspace_id }}"
+        rag_document_id: "{{ create_result.json_payload.json_payload.id }}"
+        method: DELETE
+      register: delete_result
+
     
 
     

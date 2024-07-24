@@ -10,13 +10,18 @@
       rag_api_key: sk_wrk_2MRLdOtcHpgadUefAIuW2o1l2qXZ3Qkscynkd4eXxOs9OZun
 
   tasks:
-    #- name: Get a list of documents in a Retrieval-Augmented Generation (RAG) setup
+    - name: Get a list of documents in a Retrieval-Augmented Generation (RAG) setup
+      ibm.ce_emea_rag.rag_document:
+        rag_workspace_id: "{{ rag_workspace_id }}"
+        method: LIST
+      register: get_result
 
     #- name: Get or Retrieve a document by its ID in a Retrieval-Augmented Generation (RAG) setup
 
     #- name: Embed a document in a Retrieval-Augmented Generation (RAG) setup
 
-    #- name: Remove or Delete a document by its ID in a Retrieval-Augmented Generation (RAG) setup
+    - name: Remove or Delete a document by its ID in a Retrieval-Augmented Generation (RAG) setup
+      
     
     
 

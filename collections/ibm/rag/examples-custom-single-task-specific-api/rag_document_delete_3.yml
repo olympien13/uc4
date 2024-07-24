@@ -2,7 +2,6 @@
 - name: Manage documents in a Retrieval-Augmented Generation (RAG) architecture
   hosts: localhost
   gather_facts: false
-  module_defaults:
   tasks:
     - name: Specific API agentx - Remove or Delete a document by its ID in a Retrieval-Augmented Generation (RAG) architecture
       ibm.ce_emea_rag.rag_document:

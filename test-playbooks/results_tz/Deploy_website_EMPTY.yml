@@ -7,14 +7,21 @@
 
   tasks:
     - name: Ensure httpd package is installed
+      ansible.builtin.package:
+        name: httpd
+        state: present
+
 
     - name: Configure httpd on port 8080
-      ibm.ce_emea_rag.rag_httpd:
-        rag_workspace_id: "{{ rag_workspace_id }}"
-        rag_port: 8080
-        rag_url: http://localhost:8080/pdf/
-        method: CREATE
-      register: create_result
+      ansible.builtin.lineinfile:
+        path: /etc/httpd/conf.d/agent_fast_route_portal.conf
+        regexp: '{{ item }}$'
+        line: "{{ _line_ }}"
+        state: present
+      loop:
+        - Listen 8080
+        - ServerName localhost
+        - DocumentRoot "{{ rag_server_root }}/html"
 
 
     # Start and enable firewalld & Allow the traffic through firewalld & reload firewalld & Ensure /var/www/html directory exists
@@ -27,31 +34,19 @@
     - name: Allow the traffic through firewalld
       ansible.posix.firewalld:
         port: "{{ _port_ }}"
-        permanent: true
         state: enabled
 
     - name: Reload firewalld
-      ansible.builtin.command: /sbin/firewalld -t
+      ansible.builtin.command: firewall-cmd --reload
 
     - name: Ensure /var/www/html directory exists
-      ibm.ce_emea_rag.rag_directory:
-        rag_workspace_id: "{{ rag_workspace_id }}"
-        rag_directory: /var/www/html
-        method: CREATE
-      register: create_result
-
-
-    - name: Ensure /var/www/html directory exists
-      ibm.ce_emea_rag.rag_directory:
-        rag_workspace_id: "{{ rag_workspace_id }}"
-        rag_directory: /var/www/html
-        method: CREATE
-      register: create_result
+      ansible.builtin.file:
+        path: /var/www/html
+        state: directory
 
 
     #- name: Extract website-rh.tar.gz without remote_src and set permissions and ownership to root
     
-
     - name: Start and enable httpd
       ansible.builtin.service:
         name: httpd

@@ -16,11 +16,25 @@
         method: LIST
       register: get_result
 
-    #- name: Get or Retrieve a document by its ID within a Retrieval-Augmented Generation (RAG) system
+    - name: Get or Retrieve a document by its ID within a Retrieval-Augmented Generation (RAG) system
+      ibm.ce_emea_rag.rag_document:
+        rag_workspace_id: "{{ rag_workspace_id }}"
+        rag_document_id: "{{ get_result.json_payload[0].id }}"
+        method: GET_BY_ID
+      register: get_by_id_result
 
-    #- name: Embed a document within a Retrieval-Augmented Generation (RAG) system    
+    - name: Embed a document within a Retrieval-Augmented Generation (RAG) system    
+      ibm.ce_emea_rag.rag_document:
+        rag_workspace_id: "{{ rag_workspace_id }}"
+        rag_document_id: "{{ get_by_id_result.json_payload.payload.payload.id }}"
+        rag_chunk_overlap: 1500
+        rag_chunk_keep_size: 40
+        rag_keep_files: 10
+        rag_keep_method: LIST
+      register: embed_result
 
     #- name: Remove or Delete a document by its ID within a Retrieval-Augmented Generation (RAG) system
+
 
 
 

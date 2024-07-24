@@ -16,11 +16,22 @@
         method: LIST
       register: get_result
 
-    #- name: Get or Retrieve a document by its ID into a Retrieval-Augmented Generation (RAG) structure
+    - name: Get or Retrieve a document by its ID into a Retrieval-Augmented Generation (RAG) structure
+      ibm.ce_emea_rag.rag_document:
+        rag_workspace_id: "{{ rag_workspace_id }}"
+        rag_document_id: "{{ get_result.json_payload[0].id }}"
+        method: GET_BY_ID
+      register: get_by_id_result
     
     #- name: Embed a document into a Retrieval-Augmented Generation (RAG) structure
 
     - name: Remove or Delete a document by its ID into a Retrieval-Augmented Generation (RAG) structure
+      ibm.ce_emea_rag.rag.rag_document:
+        rag_workspace_workspace_id: "{{ rag_workspace_id }}"
+        rag_document_id: "{{ get_by_by_id_result.json_id }}"
+        method: DELETE
+      register: delete_result
+
     
     
     

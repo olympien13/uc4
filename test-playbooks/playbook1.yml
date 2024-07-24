@@ -1,0 +1,25 @@
+---
+
+- name: Playbook use case 1 (stephane)
+  hosts: all
+  become: false
+  gather_facts: false
+  vars:
+      mailto: fabrice_moyen@fr.ibm.com
+      tmp_result_file: "/tmp/test_result.json"
+
+  tasks:
+    - name: Display the content of a variable
+      ansible.builtin.debug:
+        msg: "{{ tmp_result_file }}"
+
+
+
+  # WCA PROPOSAL: no filter => it gives pages of output
+  #      - name: Display the results of the test
+  #        ansible.builtin.debug:
+  #          var: url_result
+
+    - name: Display the content of a variable
+    
+    
