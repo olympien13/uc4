@@ -1,0 +1,15 @@
+---
+- name: Update a user
+  hosts: localhost
+  roles:
+    - role: ibm.ce_emea_petstore.update_user
+      vars:
+        user_endpoint: https://petstore.swagger.io/v2/user
+        user_id: 1
+        username: "johndoe"
+        first_name: "John"
+        last_name: "Doe"
+        email: "john.doe@example.com"
+        password: "newpassword123"
+        phone: "987-654-3210"
+        user_status: 1

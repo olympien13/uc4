@@ -1,0 +1,49 @@
+---
+- name: Manage orders for Petstore using petstore API from https://petstore.swagger.io/
+  hosts: localhost
+  gather_facts: true
+  # vars:
+  #   local_order_id: 1
+  #   local_pet_endpoint: https://petstore.swagger.io/v2/store
+    
+  tasks:
+    - name: Petstore API - Get store inventory
+      ansible.builtin.include_role:
+        name: ibm.ce_emea_petstore.get_inventory
+      vars:
+        petstore_endpoint: https://petstore.swagger.io/watch/inventory
+
+
+    - name: Petstore API - Place order for a pet
+      ansible.builtin.include_role:
+        name: ibm.ce_emea_petstore.place_order
+      vars:
+        petstore_endpoint: "{{ petstore_host }}"
+        petstore_username: "{{ petstore_username }}"
+        petstore_password: "{{ _petstore_password_ }}"
+        pet_id: 1
+        quantity: 1
+        ship_date: '2024-07-19T12:34:56.789Z'
+        status: placed
+        complete: true
+
+
+    - name: Petstore API - Get order by ID
+      ansible.builtin.include_role:
+        name: ibm.ce_emea_petstore.get_order_by_id
+      vars:
+        petstore_endpoint: "{{ petstore_host }}"
+        petstore_username: "{{ petstore_username }}"
+        petstore_password: "{{ _petstore_password_ }}"
+        order_id: 1
+
+
+    - name: Petstore API - Dekete order by ID
+      ansible.builtin.include_role:
+        name: ibm.ce_emea_petstore.delete_order_by_id
+      vars:
+        petstore_endpoint: "{{ petstore_host }}"
+        petstore_username: "{{ petstore_username }}"
+        petstore_password: "{{ _petstore_password_ }}"
+        order_id: 1
+

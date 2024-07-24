@@ -1,0 +1,10 @@
+---
+- name: Manage Artificial Intelligence (AI) assistant agents in a Retrieval-Augmented Generation (RAG) architecture
+  hosts: localhost
+  gather_facts: false 
+  tasks:
+    - name: Specific API agentx - Get a list of AI assistant agents in a Retrieval-Augmented Generation (RAG) architecture
+      ibm.ce_emea_rag.rag_agent:
+        rag_workspace_id: "{{ rag_workspace_id }}"
+        method: LIST
+      register: get_result

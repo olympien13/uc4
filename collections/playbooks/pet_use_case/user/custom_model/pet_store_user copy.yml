@@ -11,15 +11,16 @@
       ansible.builtin.include_role:
         name: ibm.ce_emea_petstore.create_user
       vars:
-          user_endpoint: "{{ local_pet_endpoint }}"
-          user_id: "{{ local_user_id }}"
-          username: "johndoe"
-          first_name: "John"
-          last_name: "Doe"
-          email: "john.doe@example.com"
-          password: "password123"
-          phone: "123-456-7890"
-          user_status: 1
+        user_endpoint: "{{ local_pet_endpoint }}"
+        user_id: "{{ local_user_id }}"
+        username: johndoe
+        first_name: John
+        last_name: Doe
+        email: sophia11@example.com
+        password: "{{ _password_ }}"
+        phone: (311) 555-2368
+        user_status: 1
+
 
     - name: Petstore API - Update user
       ansible.builtin.include_role:
@@ -27,29 +28,28 @@
       vars:
         user_endpoint: "{{ local_pet_endpoint }}"
         user_id: "{{ local_user_id }}"
-        username: "johndoe"
-        first_name: "John"
-        last_name: "Doe"
-        email: "john.doe@example.com"
-        password: "newpassword123"
-        phone: "987-654-3210"
+        username: johndoe
+        first_name: John
+        last_name: Doe
+        email: charlotte5@example.com
+        password: "{{ _password_ }}"
+        phone: (311) 555-2368
         user_status: 1
+
 
     - name: Petstore API - Get user by username
       ansible.builtin.include_role:
         name: ibm.ce_emea_petstore.get_user_by_username
       vars:
-        username: "johndoe"
+        username: johndoe
         user_endpoint: "{{ local_pet_endpoint }}"
 
-    - pause:
-        prompt: "Do you want to continue(yes/no)?"
-      register: my_pause
-      delegate_to: localhost
 
     - name: Petstore API - Delete user by username
       ansible.builtin.include_role:
         name: ibm.ce_emea_petstore.delete_user_by_username
       vars:
+        username: johndoe
         user_endpoint: "{{ local_pet_endpoint }}"
-        username: "johndoe"
+
+

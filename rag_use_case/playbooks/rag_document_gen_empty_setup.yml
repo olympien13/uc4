@@ -1,0 +1,21 @@
+---
+- name: Manage documents in a Retrieval-Augmented Generation (RAG) setup
+  hosts: localhost
+  gather_facts: False
+  # module_defaults:
+  #   ibm.ce_emea_rag.rag_document:
+  #     rag_api_base_url: https://rag-turbo-app-rag-turbo.apps.wxai-ocp-ga.p126.cesc.nca.ihost.com/api
+  #     rag_username_api: fabrice.livigni@free.fr
+  #     rag_password_api: password
+  #     rag_api_key: sk_wrk_2MRLdOtcHpgadUefAIuW2o1l2qXZ3Qkscynkd4eXxOs9OZun
+
+  tasks:
+    #- name: Get a list of documents in a Retrieval-Augmented Generation (RAG) setup
+
+    #- name: Get or Retrieve a document by its ID in a Retrieval-Augmented Generation (RAG) setup
+
+    #- name: Embed a document in a Retrieval-Augmented Generation (RAG) setup
+
+    #- name: Remove or Delete a document by its ID in a Retrieval-Augmented Generation (RAG) setup
+
+    

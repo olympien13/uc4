@@ -1,0 +1,59 @@
+---
+- name: Deploy Azure resources and Create Azure VM
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  # vars:
+  #   vm_config:
+  #     resource_group: rg-lightspeed
+  #     location: eastus
+  #     virtualnetwork:
+  #       address_prefixes: 10.0.0.0/16
+  #       name: vn_name
+  #     subnet:
+  #       address_prefix: 10.0.1.0/24
+  #     network_interfaces:
+  #       - nic-lightspeed
+  #     image:
+  #       offer: RHEL
+  #       publisher: RedHat
+  #       sku: 9-lvm
+  #       version: latest
+  #     ssh_public_keys:
+  #       - path: /home/rhel/.ssh/authorized_keys
+  #         key_data: "{{ pub_key_data | default(lookup('file', 'azure_demo_ssh_key.pub', errors='ignore')) }}"
+  #     ssh_password_enabled: false
+  #     vm_size: Standard_A1_v2
+  #     vm_name: vm-lightspeed
+  #     admin_username: rhel
+
+  tasks:
+    - name: Create a resource group
+      ibm.ce_emea_rag.rag_resource_group:
+        rag_workspace_id: "{{ rag_workspace_id }}"
+        agent_id: "{{ rag_agent_id }}"
+        name: "{{ resource_group_name }}"
+        method: CREATE
+      register: create_result
+
+    - name: Create a virtual network
+      ibm.ce_emea_rag.rag_virtual_network:
+        rag_workspace_id: "{{ rag_workspace_id }}"
+        agent_id: "{{ rag_agent_id }}"
+        name: "{{ virtual_network_name }}"
+        method: CREATE
+      register: create_result
+
+    #- name: Add subnet
+
+
+    - name: Create a VM
+    
+    
+
+
+
+
+
+

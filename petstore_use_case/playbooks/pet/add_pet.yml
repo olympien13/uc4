@@ -1,0 +1,13 @@
+---
+
+- name: Add a new pet to the store
+  hosts: localhost
+  roles:
+    - role: ibm.ce_emea_petstore.add_pet
+      vars:
+        pet_id: 123
+        pet_name: "Buddy"
+        category_id: 1
+        category_name: "Dogs"
+        status: "available"
+        pet_endpoint: "https://petstore.swagger.io/v2/pet"

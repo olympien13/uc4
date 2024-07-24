@@ -16,16 +16,17 @@
         pet_id: "{{ local_pet_id }}"
         pet_name: "{{ local_pet_name }}"
         category_id: 1
-        category_name: "Dogs"
-        status: "available"
+        status: 1
         pet_endpoint: "{{ local_pet_endpoint }}"
+
 
     - name: Petstore API - Find pets by status
       ansible.builtin.include_role:
         name: ibm.ce_emea_petstore.find_pets_by_status
       vars:
-        status: "available"
+        status: available
         pet_endpoint: "{{ local_pet_endpoint }}"
+
 
     - name: Petstore API - Get pet by ID
       ansible.builtin.include_role:
@@ -34,10 +35,6 @@
         pet_id: "{{ local_pet_id }}"
         pet_endpoint: "{{ local_pet_endpoint }}"
 
-    - pause:
-        prompt: "Do you want to continue(yes/no)?"
-      register: my_pause
-      delegate_to: localhost
 
     - name: Petstore API - Delete pet by ID
       ansible.builtin.include_role:
@@ -45,3 +42,4 @@
       vars:
         pet_endpoint: "{{ local_pet_endpoint }}"
         pet_id: "{{ local_pet_id }}"
+

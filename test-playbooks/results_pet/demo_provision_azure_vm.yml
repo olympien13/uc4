@@ -1,0 +1,53 @@
+---
+- name: Deploy Azure resources and Create Azure VM
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Create a resource group
+      ansible.builtin.include_role:
+        name: ibm.ce_emea_pet_age_tile_ansible.create_resource_group
+      vars:
+        resource_group_id: 1
+        resource_group_name: Dogs
+
+
+    - name: Create a virtual network
+      ansible.builtin.include_role:
+        name: ibm.ce_emea_pet_age_tile_ansible.create_virtual_network
+      vars:
+        virtual_network_id: 1
+        virtual_network_name: Dogs Network
+
+
+    - name: Add subnet
+      ansible.builtin.include_role:
+        name: ibm.ce_emea_pet_age_tile_ansible.add_subnet
+      vars:
+        virtual_network_id: 1
+        subnet_id: 1
+        subnet_name: Dogs Subnet
+
+
+    - name: Create a VM
+      ansible.builtin.include_role:
+        name: ibm.ce_emea_pet_age_tile_ansible.create_vm
+      vars:
+        vm_id: 1
+        vm_name: Dogs VM
+        vm_resource_group_id: 1
+        vm_location: Dogs, TX, 12345
+        vm_user_name: johndoe
+        vm_password: "{{ _vm_password_ }}"
+        vm_is_public: true
+        vm_status: available
+
+    
+    
+
+
+
+
+
+

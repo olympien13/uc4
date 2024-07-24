@@ -7,13 +7,13 @@
     local_pet_endpoint: https://petstore.swagger.io/v2/store
     
   tasks:
-    - name: Petstore API - Get store inventory
+    - name: Include get store inventory role
       ansible.builtin.include_role:
         name: ibm.ce_emea_petstore.get_inventory
       vars:
         pet_endpoint: "{{ local_pet_endpoint }}"
 
-    - name: Petstore API - Place order for a pet
+    - name: Include place order for a pet role
       ansible.builtin.include_role:
         name: ibm.ce_emea_petstore.place_order  
       vars:
@@ -25,7 +25,7 @@
         status: "placed"
         complete: true
 
-    - name: Petstore API - Get order by ID
+    - name: Include get order by ID role
       ansible.builtin.include_role:
         name: ibm.ce_emea_petstore.get_order_by_id  
       vars:
@@ -38,7 +38,7 @@
       delegate_to: localhost
 
 
-    - name: Petstore API - Dekete order by ID
+    - name: Include delete order by ID role
       ansible.builtin.include_role:
         name: ibm.ce_emea_petstore.delete_order_by_id
       vars:

@@ -9,7 +9,7 @@
     local_pet_name: "Tess"
 
   tasks:
-    - name: Petstore API - Add pet
+    - name: Include add pet role
       ansible.builtin.include_role:
         name: ibm.ce_emea_petstore.add_pet
       vars:
@@ -20,14 +20,14 @@
         status: "available"
         pet_endpoint: "{{ local_pet_endpoint }}"
 
-    - name: Petstore API - Find pets by status
+    - name: Include find pets by status role
       ansible.builtin.include_role:
         name: ibm.ce_emea_petstore.find_pets_by_status
       vars:
         status: "available"
         pet_endpoint: "{{ local_pet_endpoint }}"
 
-    - name: Petstore API - Get pet by ID
+    - name: Include Get pet by ID role
       ansible.builtin.include_role:
         name: ibm.ce_emea_petstore.get_pet_by_id
       vars:
@@ -39,7 +39,7 @@
       register: my_pause
       delegate_to: localhost
 
-    - name: Petstore API - Delete pet by ID
+    - name: Include delete pet by ID role
       ansible.builtin.include_role:
         name: ibm.ce_emea_petstore.delete_pet
       vars:

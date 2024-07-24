@@ -1,0 +1,47 @@
+---
+- name: Manage users for Petstore using petstore API from https://petstore.swagger.io/
+  hosts: localhost
+  gather_facts: true
+  # vars:
+  #   local_user_id: 1
+  #   local_pet_endpoint: https://petstore.swagger.io/v2/user
+
+  tasks:
+    - name: Petstore API - Create user
+      ansible.builtin.include_role:
+        name: ibm.ce_emea_petstore.create_user
+      vars:
+        user_endpoint: https://petstore.example.com/api/v1/users/ano-user
+        user_name: johndoe
+        user_email: sophia11@example.com
+        user_password: "{{ _user_password_ }}"
+        user_phone: (311) 555-2368
+        user_status: 1
+
+
+    - name: Petstore API - Update user
+      ansible.builtin.include_role:
+        name: ibm.ce_emea_petstore.update_user
+      vars:
+        user_endpoint: https://petstore.example.com/api/v1/users/ano-user
+        user_name: johndoe
+        user_email: charlotte5@example.com
+        user_password: "{{ _user_password_ }}"
+        user_phone: (311) 555-2368
+        user_status: 1
+
+
+    - name: Petstore API - Get user by username
+      ansible.builtin.include_role:
+        name: ibm.ce_emea_petstore.get_user_by_username
+      vars:
+        username: johndoe
+
+
+    - name: Petstore API - Delete user by username
+      ansible.builtin.include_role:
+        name: ibm.ce_emea_petstore.delete_user_by_username
+      vars:
+        username: johndoe
+
+

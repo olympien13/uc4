@@ -1,0 +1,12 @@
+---
+
+- hosts: all
+  tasks:
+  #- name: install ssh
+
+  - name: install openssh-server
+    ansible.builtin.package:
+      name: openssh-server
+      state: present
+  
+  

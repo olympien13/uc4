@@ -1,0 +1,58 @@
+---
+- name: OCP Cluster Operation
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  #module_defaults:
+  #  group/community.okd.okd:
+  #     host: https://api.tnc-env23.p157.cesc.nca.ihost.com:6443
+  #     verify_ssl: false
+
+  vars:
+    openshift_admin: kubeadmin
+    openshift_namespace: cp4aiops
+    openshift_api_url: api.tnc-env23.p157.cesc.nca.ihost.com:6443
+
+  tasks:
+  - block:
+    # It's good practice to store login credentials in a secure vault and not
+    # directly in playbooks.
+    - name: Include variables from 'openshift_passwords.yml'
+      include_vars: openshift_passwords.yml
+
+    - name: Log in Openshift
+      ansible.builtin.command: |-
+        kubectl auth can-login --username={{ openshift_admin }} --password="{{ _password_ }}"={{ openshift_api_url }}
+
+
+    - name: Generate a list of all pods from an openshift namespace using API Key authentication
+      ansible.builtin.command: ibm.ce_emea_pet_endpoint_get_namespaced_list_from_key_auth
+        "{{ openshift_namespace }}"
+      environment:
+        K8s_AUTH_API_KEY: "{{ _k8s_auth_api_key_ }}"
+      register: result
+
+
+    - name: extract each pod name and generate an array of json object whose key is name and value is the pod name
+      ansible.builtin.set_fact:
+        ibm_ce_emea_pet_endpoint_get_namespaced_list_from_key_auth_var: "{{ result.stdout
+          | from_json }}"
+
+
+    - name: print the array
+      ansible.builtin.debug:
+        var: "{{ ibm_ce_emea_pet_endpoint_get_namespaced_list_from_key_auth_var }}"
+
+
+    - name: create a json file from the array and the json file name is the openshift namespace 
+      ansible.builtin.copy:
+        dest: '{{ openshift_namespace }}/generated_files/endpoint_list_from_key_auth.json'
+        content: "{{ ibm_ce_emea_pet_endpoint_get_namespaced_list_from_key_auth_var }}"
+
+
+
+
+
+
+    
+
