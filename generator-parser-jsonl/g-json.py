@@ -62,21 +62,28 @@ def manage_df(df_input, output_df_output, rag_json_key):
 
     return output_df_output
 
-
 set_number = int(sys.argv[1])
 input_file = sys.argv[2]
+remove_cols = sys.argv[3].lower() == 'true' if len(sys.argv) == 4 else False
+
 output_file = f'output-{input_file.split(".")[0]}.jsonl'
 df_data = pd.read_json(input_file, lines=True)
 cols_to_be_removed = ['data_source_description', 'module', 'license', 'path', 'repo_name', 'repo_url']
-for col in cols_to_be_removed:
-    df_data.pop(col)
+print(f"remove_cols = {remove_cols}")
+if remove_cols:
+    for col in cols_to_be_removed:
+        df_data.pop(col)
 
 output_df_data = pd.DataFrame(columns=df_data.columns)
 number = 0
 current_index_dataframe = 0
 for index, row in df_data.iterrows():
-    print(current_index_dataframe)
-    output_df_data.loc[current_index_dataframe] = [df_data.at[index, 'input'], df_data.at[index, 'output']]
+    #print(index)
+    #print(current_index_dataframe)
+    if remove_cols:
+        output_df_data.loc[current_index_dataframe] = [df_data.at[index, 'input'], df_data.at[index, 'output']]
+    else:
+         output_df_data.loc[current_index_dataframe] = df_data.loc[index]
     current_index_dataframe += 1
     df_data.at[index, 'input'] = f"{row['input']}" + " \"{number}\"\n"
 
@@ -93,11 +100,23 @@ for index, row in df_data.iterrows():
 
     
     # df_data.at[index, 'output'] = insert_string_at_index(df_data.at[index, 'output'], "        rag_output_key: \"{number}\"\n", str_idx_search + len(search_key))
-    output_df_data.loc[current_index_dataframe] = [df_data.at[index, 'input'], df_data.at[index, 'output']]
+    if remove_cols:    
+        output_df_data.loc[current_index_dataframe] = [df_data.at[index, 'input'], df_data.at[index, 'output']]
+    else:
+        output_df_data.loc[current_index_dataframe] = df_data.loc[index]
+        
     for i in range(1, set_number):
         output_df_data.at[current_index_dataframe, 'input'] = df_data.at[index, 'input'].replace("{number}", str(i))
-        #output_df_data.at[current_index_dataframe, 'output'] = df_data.at[index, 'output'].replace("{number}", str(i))
-        output_df_data.loc[current_index_dataframe] = [output_df_data.at[current_index_dataframe, 'input'], df_data.at[index, 'output']]
+
+        if remove_cols: 
+            output_df_data.loc[current_index_dataframe] = [output_df_data.at[current_index_dataframe, 'input'], df_data.at[index, 'output']]
+        else:
+            for key in cols_to_be_removed:              
+                output_df_data.at[current_index_dataframe, key] = df_data.at[index, key]
+            output_df_data.at[current_index_dataframe, 'output'] = df_data.at[index, 'output']
+            pd.concat([output_df_data, output_df_data.loc[current_index_dataframe:current_index_dataframe]], ignore_index=True)
+            #pd.concat([df, row_to_duplicate], ignore_index=True)
+        #    output_df_data.loc[current_index_dataframe] = output_df_data.at(current_index_dataframe)
         current_index_dataframe += 1
 
     #output_df_data = output_df_data._append(df_data.at[index], ignore_index=True)

@@ -1,20 +1,25 @@
 ---
-- name: Sample Ansible playbooks to manage documents in a Retrieval-Augmented Generation (RAG) framework
+- name: Manage documents within a Retrieval-Augmented Generation (RAG) system
   hosts: localhost
-  gather_facts: false
+  gather_facts: False
+  vars:
+    rag_agent_id: clxt6tle8000777c1ssbpf9b2
   module_defaults:
     ibm.ce_emea_rag.rag_document:
       rag_api_base_url: https://rag-turbo-app-rag-turbo.apps.wxai-ocp-ga.p126.cesc.nca.ihost.com/api
       rag_username_api: fabrice.livigni@free.fr
       rag_password_api: password
       rag_api_key: sk_wrk_2MRLdOtcHpgadUefAIuW2o1l2qXZ3Qkscynkd4eXxOs9OZun
+      
 
   tasks:
+    - name: debug rag_agent_id
+      ansible.builtin.debug:
+        msg: "{{ rag_agent_id }}"
 
-
-    - name: Get a list of documents in a Retrieval-Augmented Generation (RAG) framework
+    - name: Get a list of documents within a Retrieval-Augmented Generation (RAG) system
       ibm.ce_emea_rag.rag_document:
-        rag_agent_id: clxt6tle8000777c1ssbpf9b2
+        rag_agent_id: "{{ rag_agent_id }}"
         method: LIST
       register: get_result
 
@@ -22,10 +27,10 @@
       debug:
         var: get_result.json_payload
 
-    - name: Get or Retrieve a document by its ID in a Retrieval-Augmented Generation (RAG) framework
+    - name: Get or Retrieve a document by its ID within a Retrieval-Augmented Generation (RAG) system
       ibm.ce_emea_rag.rag_document:
-        rag_agent_id: clxt6tle8000777c1ssbpf9b2
-        rag_document_id: "{{ get_result.json_payload[0].id  }}"
+        rag_agent_id: "{{ rag_agent_id }}"
+        rag_document_id: "{{ get_result.json_payload[0].id }}"
         method: GET_BY_ID
       register: get_by_id_result
 
@@ -33,12 +38,11 @@
       debug:
         var: get_by_id_result.json_payload
 
-
-    - name: Embed a document in a Retrieval-Augmented Generation (RAG) framework
+    - name: Embed a document within a Retrieval-Augmented Generation (RAG) system
       ibm.ce_emea_rag.rag_document:
-        rag_agent_id: clxt6tle8000777c1ssbpf9b2
+        rag_agent_id: "{{ rag_agent_id }}"
         rag_file_name: Red_Hat_Partner Training_Portal_User_Guide.pdf
-        rag_file_url: http://host.containers.internal/pdf/Red_Hat_Partner_Training_Portal_User_Guide.pdf
+        rag_file_url: http://localhost/pdf/Red_Hat_Partner_Training_Portal_User_Guide.pdf
         rag_chunk_overlap: 150
         rag_chunk_size: 400
         rag_keep_files: false
@@ -48,13 +52,7 @@
     - name: Display the output of the document ingestion
       debug:
         var: create_result.json_payload
-
-    - pause:
-        prompt: "Do you want to continue(yes/no)?"
-      register: my_pause
-      delegate_to: localhost
-
-
+        
     - name: Remove or Delete a document by its ID in a Retrieval-Augmented Generation (RAG) framework
       ibm.ce_emea_rag.rag_document:
         rag_agent_id: "clxt6tle8000777c1ssbpf9b2"
@@ -65,8 +63,3 @@
     - name: Display the delete document result
       debug:
         var: delete_result.json_payload
-
-
-
-
-

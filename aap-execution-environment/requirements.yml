@@ -3,3 +3,5 @@ collections:
 - name: community.general
 - source: mycollections/ibm-ce_emea_rag-1.1.0.tar.gz
   type: file
+- source: mycollections/ibm-ce_emea_petstore-1.0.0.tar.gz
+  type: file

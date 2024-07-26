@@ -1,0 +1,47 @@
+---
+
+- name: Manage pets for Petstore using petstore API from https://petstore.swagger.io/
+  hosts: localhost
+  gather_facts: true
+  vars:
+    local_pet_id: 123
+    local_pet_endpoint: "https://petstore.swagger.io/v2/pet"
+    local_pet_name: "Tess"
+
+  tasks:
+    - name: Petstore API - Add pet
+      ansible.builtin.include_role:
+        name: ibm.ce_emea_petstore.add_pet
+      vars:
+        pet_id: "{{ local_pet_id }}"
+        pet_name: "{{ local_pet_name }}"
+        category_id: 1
+        category_name: "Dogs"
+        status: "available"
+        pet_endpoint: "{{ local_pet_endpoint }}"
+
+    - name: Petstore API - Find pets by status
+      ansible.builtin.include_role:
+        name: ibm.ce_emea_petstore.find_pets_by_status
+      vars:
+        status: "available"
+        pet_endpoint: "{{ local_pet_endpoint }}"
+
+    - name: Petstore API - Get pet by ID
+      ansible.builtin.include_role:
+        name: ibm.ce_emea_petstore.get_pet_by_id
+      vars:
+        pet_id: "{{ local_pet_id }}"
+        pet_endpoint: "{{ local_pet_endpoint }}"
+
+    - pause:
+        prompt: "Do you want to continue(yes/no)?"
+      register: my_pause
+      delegate_to: localhost
+
+    - name: Petstore API - Delete pet by ID
+      ansible.builtin.include_role:
+        name: ibm.ce_emea_petstore.delete_pet
+      vars:
+        pet_endpoint: "{{ local_pet_endpoint }}"
+        pet_id: "{{ local_pet_id }}"

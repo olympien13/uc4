@@ -36,6 +36,14 @@
         method: CREATE
       register: create_result
 
+    # problem:  ibm.ce_emea_rag.rag.rag_document au lieu de ibm.ce_emea_rag.rag_document
+    # problem: rag_agent_agent_id au lieu de rag_agent_id
+    # - name: Remove or Delete a document by its ID in a Retrieval-Augmented Generation (RAG) setup
+    #   ibm.ce_emea_rag.rag.rag_document:
+    #     rag_agent_agent_id: "{{ rag_agent_id }}"
+    #     rag_document_id: "{{ create_result.json_payload[0].id }}"
+    #     method: DELETE
+    #   register: delete_result
 
     - name: Remove or Delete a document by its ID into a Retrieval-Augmented Generation (RAG) structure
       ibm.ce_emea_rag.rag.rag_document:
