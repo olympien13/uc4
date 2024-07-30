@@ -1,0 +1,21 @@
+---
+- name: Manage orders for Petstore using petstore API from https://petstore.swagger.io/
+  hosts: localhost
+  gather_facts: true
+  vars:
+    local_order_id: 1
+    local_pet_endpoint: https://petstore.swagger.io/v2/store
+    
+  tasks:
+    #- name: Petstore API - Get store inventory
+
+    #- name: Petstore API - Place order for a pet
+
+    #- name: Petstore API - Get order by ID
+
+    # - pause:
+    #     prompt: "Do you want to continue(yes/no)?"
+    #   register: my_pause
+    #   delegate_to: localhost
+
+    #- name: Petstore API - Dekete order by ID

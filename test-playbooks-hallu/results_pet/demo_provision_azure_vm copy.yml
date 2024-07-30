@@ -1,0 +1,22 @@
+---
+- name: Deploy Azure resources and Create Azure VM
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Create a resource group
+
+    #- name: Create a virtual network
+
+    #- name: Add subnet
+
+    #- name: Create a VM
+
+    
+
+
+
+
+
+
