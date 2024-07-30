@@ -1,0 +1,21 @@
+
+********************************************************************************
+****                Ansible Content Parser Execution Report                 ****
+********************************************************************************
+
+Date/Time             : 2024-07-30T16:45:30.872158+00:00
+Content Parser Version: 1.0.3
+Source Repository     : ./playbooks/
+Output Directory      : /Users/livigni/Documents/TNC/WCA4A/clients/CAGIP-Custom/uc4/collections/playbooks/pet_use_case/training/CustomModel-54733
+
+
+[ List of Ansible modules found in tasks ]
+
+--------------------------------------
+Module Name                      Count
+--------------------------------------
+ansible.builtin.include_role        24
+pause                                6
+--------------------------------------
+TOTAL                               30
+--------------------------------------

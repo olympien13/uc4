@@ -7,43 +7,40 @@
     local_pet_endpoint: https://petstore.swagger.io/v2/store
     
   tasks:
-    - name: Petstore API - Get store inventory
+    - name: Include get store inventory role
       ansible.builtin.include_role:
         name: ibm.ce_emea_petstore.get_inventory
       vars:
         pet_endpoint: "{{ local_pet_endpoint }}"
 
-
-    - name: Petstore API - Place order for a pet
+    - name: Include place order for a pet role
       ansible.builtin.include_role:
-        name: ibm.ce_emea_petstore.place_order
+        name: ibm.ce_emea_petstore.place_order  
       vars:
         pet_endpoint: "{{ local_pet_endpoint }}"
         order_id: "{{ local_order_id }}"
         pet_id: 1
         quantity: 1
-        ship_date: '2024-07-19T12:34:56.789Z'
-        status: placed
+        ship_date: "2024-07-19T12:34:56.789Z"
+        status: "placed"
         complete: true
 
-    - name: Petstore API - Get order by ID
+    - name: Include get order by ID role
       ansible.builtin.include_role:
-        name: ibm.ce_emea_petstore.get_order_by_id
+        name: ibm.ce_emea_petstore.get_order_by_id  
       vars:
         pet_endpoint: "{{ local_pet_endpoint }}"
         order_id: "{{ local_order_id }}"
 
+    - pause:
+        prompt: "Do you want to continue(yes/no)?"
+      register: my_pause
+      delegate_to: localhost
 
-    # - pause:
-    #     prompt: "Do you want to continue(yes/no)?"
-    #   register: my_pause
-    #   delegate_to: localhost
 
-
-    - name: Petstore API - Delete order by ID
+    - name: Include delete order by ID role
       ansible.builtin.include_role:
         name: ibm.ce_emea_petstore.delete_order_by_id
       vars:
         pet_endpoint: "{{ local_pet_endpoint }}"
         order_id: "{{ local_order_id }}"
-

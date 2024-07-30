@@ -86,19 +86,7 @@ for index, row in df_data.iterrows():
          output_df_data.loc[current_index_dataframe] = df_data.loc[index]
     current_index_dataframe += 1
     df_data.at[index, 'input'] = f"{row['input']}" + " \"{number}\"\n"
-
-    # search_key= 'ibm.ce_emea_rag.rag_agent:\n'
-    # try:
-    #     str_idx_search = f"{row['output']}".index(search_key)
-    # except ValueError:
-    #     search_key= 'ibm.ce_emea_rag.rag_document:\n'
-
-    # try:    
-    #     str_idx_search = f"{row['output']}".index(search_key)
-    # except ValueError:
-    #     continue
-
-    
+  
     # df_data.at[index, 'output'] = insert_string_at_index(df_data.at[index, 'output'], "        rag_output_key: \"{number}\"\n", str_idx_search + len(search_key))
     if remove_cols:    
         output_df_data.loc[current_index_dataframe] = [df_data.at[index, 'input'], df_data.at[index, 'output']]
@@ -121,6 +109,11 @@ for index, row in df_data.iterrows():
 
     #output_df_data = output_df_data._append(df_data.at[index], ignore_index=True)
 # Write DataFrame to jsonl file
-output_df_data.to_json(output_file, orient='records', lines=True)
+#output_df_data.to_json(output_file, orient='records', lines=True)
 
-print(f"DataFrame has been written to {output_file}")
+# Write the DataFrame to a JSONL file without escaping URLs
+with open(output_file, 'w', encoding='utf-8') as file:
+    for record in output_df_data.to_dict(orient='records'):
+        json_record = json.dumps(record, ensure_ascii=False)
+        file.write(json_record + '\n')
+print(f"DataFrame has been written to '{output_file}'")
