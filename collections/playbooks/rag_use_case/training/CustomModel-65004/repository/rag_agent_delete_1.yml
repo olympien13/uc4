@@ -1,0 +1,15 @@
+---
+- name: Manage Artificial Intelligence (AI) assistant agents in a Retrieval-Augmented Generation (RAG) framework
+  hosts: localhost
+  gather_facts: false
+  module_defaults:
+    ibm.ce_emea_rag.rag_agent:
+      rag_api_base_url: https://rag-turbo-app-rag-turbo.apps.wxai-ocp-ga.p126.cesc.nca.ihost.com/api
+      rag_api_key: sk_wrk_2MRLdOtcHpgadUefAIuW2o1l2qXZ3Qkscynkd4eXxOs9OZun  
+  tasks:
+    - name: Specific API agentx - Delete an AI assistant agent by its ID in a Retrieval-Augmented Generation (RAG) framework
+      ibm.ce_emea_rag.rag_agent:
+        rag_workspace_id: "{{ rag_workspace_id }}"
+        rag_agent_id: "{{ rag_agent_id }}"
+        method: DELETE
+      register: delete_result

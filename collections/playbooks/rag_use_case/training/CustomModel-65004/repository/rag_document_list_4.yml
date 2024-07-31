@@ -1,0 +1,10 @@
+---
+- name: Manage documents into a Retrieval-Augmented Generation (RAG) structure
+  gather_facts: false
+  hosts: localhost
+  tasks:
+    - name: Specific API agentx - Get a list of documents into a Retrieval-Augmented Generation (RAG) structure
+      ibm.ce_emea_rag.rag_document:
+        rag_agent_id: "{{ rag_agent_id }}"
+        method: LIST
+      register: get_result
