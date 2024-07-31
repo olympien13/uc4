@@ -43,7 +43,7 @@
       register: create_result
 
 
-    - name: Specific API agentx. Display the output of the document ingestion
+    - name: Display the output of the document ingestion
       debug:
         var: create_result.json_payload
 
